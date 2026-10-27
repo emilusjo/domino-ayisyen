@@ -506,7 +506,7 @@ header,.placebar,.scores{position:relative;z-index:4}
 
 <script>
   /* ====================================================================================================
-     DOMINO LAKAY: MAP OF THIS FILE (search for the code in square brackets, like [E3], to jump to a section)
+     DOMINO AYISYEN (HAITIAN DOMINO): MAP OF THIS FILE (search for the code in square brackets, like [E3], to jump to a section)
        CSS (look and layout) ........ the <style> block at the top: header, scores, 3D table, tiles, cards, phone and wide-screen rules
        [A1] texts ................... every word, Kreyol and English
        [A2] saving .................. what is kept on the phone (settings, game in progress, wins)
@@ -515,6 +515,9 @@ header,.placebar,.scores{position:relative;z-index:4}
        [B3] tour and background ..... Domino Tour list, theme of the current place
        [C1] sound ................... click, knock, celebration sounds
        [D1] panels .................. rules, names, photo credits, settings
+       [D2] avatars and flags ....... the 12 drawn faces and 9 drawn flags (AVATARS, FLAGS), botAv()
+       [D3] profile ................. the Profile panel: name, face, flag, journey, stats (STATS are kept in [A2], counted in [G1])
+       [D4] learn to play ........... the six-step lesson (LSCENE, LEARN, openLearn); never touches the game in progress
        [E1] board and rules ......... line of tiles, layout, 3D table size
        [E2] flow .................... game and round start, shuffle, deal (hands)
        [E3] playing ................. play, pass, draw
@@ -572,7 +575,7 @@ header,.placebar,.scores{position:relative;z-index:4}
       matchWin:'You win the match! 🎉',matchLose:'You lost the match',matchTeamWin:'Your team wins the match! 🎉',
       matchWho:'{n} wins the match.',score:'Points',lang:'KR',noteHint:'',pts:'points',winsLow:'Lowest count wins.',settingsTitle:'Settings',profTitle:'Profile',profJourney:'Your journey',profPl:'{n} players',profStats:'Stats',profMatches:'Matches',profRounds:'Rounds',profTonbe:'Dominos you made',profDek:'Dekabès you made',profBlocked:'Blocked rounds',profOf:'{a} won of {b}',profNone:'No match played yet. Your stats will show up here.',profReset:'Reset stats',profSure:'Tap again to confirm',profName:'Change name',learnTitle:'Learn to play',profAvatar:'Your avatar',profCountry:'Your country',profNoFlag:'None',namesTitle:'Player names',namesHelp:'Type your name and the names of the other players. Leave a box empty to keep the usual name.',namesMe:'Your name',namesP:'Player {n}',namesPartner:'partner in a game of 4',namesSave:'Save',namesReset:'Back to the usual names',histTitle:'Past rounds',histRound:'Round',histLine:'The line of play',histLeft:'Tiles left in the hands',histNone:'No round has finished yet.',tourMode:'Journey for {n} players',cardHide:'Fold the result',cardShow:'Show the result',histEnds:'The two ends: {l} and {r}',histDek:'Dekabès: the {t} won both ends, {l} and {r}.',histLastT:'Last tile: {t}',histKeep:'Rounds are kept for 24 hours after they end, to look back at how the last play went.',photosTitle:'Photo credits',photosIntro:'The photos come from Unsplash. Thank you to the photographers.',photosMore:'A few photos do not have their photographer listed yet.',photosAI:'Image made with artificial intelligence',previewing:'Previewing (not reached yet)',tourPreviewHint:'Tap any place to look at it.',tourBack:'Back to my place',tilt3d:'3D table',tourTitle:'Domino Tour',tourReached:'Reached',tourHere:'You are here',tourNeed:'{n} wins',tourStats:'You have won {n} matches. Every win (Vièj) opens a new place!',tourLevel:'Bot level: {l}. They get stronger at {w} wins.',tourLevelMax:'Bot level: 5 (the strongest).',tourEarlier:'… {n} places behind you',nextDest:'Next destination',cont:'Continue',version:'Version',vieg:'Vièj!',viegCount:'{t}: {n} Vièj',shuffling:'Shuffling the tiles…',dealing:'Dealing 7 tiles to each player…',travel:'You travel to {n}!',toNext:'{k} more wins to reach {n}.',here:'You are at: {n} · {w} wins',tieTitle:'Tie!',tieShuffle:'Shuffling the tiles…',pickYou:'Pick a tile from the pile.',pickBot:'{n} is picking a tile…',pickRes:'{n}: {t}',pickAgain:'Same count. Shuffle again.',pickWin:'{n} has the lowest and wins!',hintLbl:'Show tiles I can play',rules:'Rules',rulesTitle:'How to play',close:'Close',sound:'Sound',settings:'Change settings',installTitle:'Put the game on your phone’s home screen',installTxt:'iPhone: open the link in Safari, tap the Share button, then choose “Add to Home Screen”.<br>Android: open the link in Chrome, tap the menu (three dots), then choose “Add to Home screen”.',tonbeBtn:'M’tonbe! (I win)',tonbeNo1:'You still have more than one tile.',tonbeNo2:'Your last tile doesn’t fit.',dek:'Dekabès!',dekOwn:'Dekabès! You win on both ends.',dekTitle:'{n} dekabès! Wins on both ends.',mustPlay:'You have a play. You can’t pass.'}
   };
-  var TARGET=4,BUILD=123; /* raise by one with every change, so the player can check which copy of the page is open (Settings) */
+  var TARGET=4,BUILD=124; /* raise by one with every change, so the player can check which copy of the page is open (Settings) */
   var S={history:[],histN:0,previewIdx:null,portrait:false,bdScene:-1,sceneKey:'',bdIdx:-1,pendingEnd:null,lastCard:null,vieg:[],pickId:0,flight:null,drawFrom:null,shuffling:false,level:1,progress:{wins:0},cfg:{n:4,mode:'nodraw',lang:'kr'},n:4,mode:'nodraw',lang:'kr',players:[],pile:[],chain:[],turn:0,passes:0,leader:0,wins:[],over:true,busy:false,sel:null,fresh:null,bubbles:{},hints:false,sound:true,started:false,msg:'',msgBig:false};
   var $=function(id){return document.getElementById(id)};
 
@@ -610,7 +613,7 @@ header,.placebar,.scores{position:relative;z-index:4}
   var WINS={2:0,3:0,4:0};
   function curMode(){var n=S.setupOpen?S.cfg.n:(S.started?S.n:S.cfg.n);return (n===2||n===3||n===4)?n:4}
   Object.defineProperty(S.progress,'wins',{get:function(){return WINS[curMode()]},set:function(v){WINS[curMode()]=v},enumerable:true,configurable:true});
-  /* ---- stats shown in the profile (kept on this phone only) ---- */
+  /* ---- stats shown in the profile [D3] (kept on this phone only; counted in endRoundMain [G1]) ---- */
   var SKEY='dominoKreyol.stats.v1',STATS={mp:0,mw:0,rp:0,rw:0,tonbe:0,dek:0,blk:0};
   try{var so=JSON.parse(localStorage.getItem(SKEY)||'null');if(so&&typeof so==='object')for(var sk in STATS)if(+so[sk]>=0)STATS[sk]=Math.floor(+so[sk])}catch(e){}
   function saveStats(){try{localStorage.setItem(SKEY,JSON.stringify(STATS))}catch(e){}}
@@ -1682,7 +1685,7 @@ header,.placebar,.scores{position:relative;z-index:4}
     c2.onclick=function(e){var b=e.target.closest&&e.target.closest('button[data-lang]');if(b){setLang(b.getAttribute('data-lang'));openSettings()}};
   }
 
-  /* ==== avatars and flags, drawn in code (our own faces: people, not mascots) ==== */
+  /* ==================== [D2] AVATARS AND FLAGS ==================== drawn in code; our own faces are people, not mascots (chosen in Profile [D3], shown on the name tags in [H1]) */
   var AVATARS=[
     {bg:'#f2d28b',skin:'#8d5524',hair:'short',hc:'#1b1210',acc:'straw',shirt:'#2a9d8f'},
     {bg:'#9bd8c6',skin:'#6b4226',hair:'none',hc:'#1b1210',acc:'tignon',shirt:'#f2c14e',tc:'#d94a3a'},
@@ -1736,6 +1739,7 @@ header,.placebar,.scores{position:relative;z-index:4}
   function flagSvg(id,cls){var f=flagOf(id);return f?'<svg viewBox="0 0 30 20" preserveAspectRatio="none"'+(cls?' class="'+cls+'"':'')+' aria-hidden="true">'+f.d+'</svg>':''}
   function pickAvatar(i){AVATAR=i;savePrefs();if(S.started)render()}
   function pickFlag(id){FLAG=id;savePrefs();if(S.started)render()}
+  /* ==================== [D3] PROFILE ==================== opened from Settings: your face and flag, your place in each mode, your stats (STATS in [A2], counted in endRoundMain [G1]) */
   function openProfile(){
     var fo=flagOf(FLAG),h='<h2>'+t('profTitle')+'</h2><div class="pfhead"><div class="pavbig">'+avatarSvg(AVATAR)+'</div><div class="pfn" style="text-align:left">'+(MYNAME||t('you')).replace(/</g,'&lt;')+
       (fo?'<small>'+flagSvg(FLAG)+(S.lang==='kr'?fo.kr:fo.en)+'</small>':'')+'</div></div><div style="text-align:left">'+
@@ -1772,7 +1776,7 @@ header,.placebar,.scores{position:relative;z-index:4}
     };
   }
 
-  /* ==== Learn to play: a short lesson with real tiles. It never touches the game in progress. Kreyol texts are a draft for a native speaker to check. ==== */
+  /* ==================== [D4] LEARN TO PLAY ==================== a six-step lesson with real tiles; it never touches the game in progress. Opened from the start screen [H1] and from Settings. Kreyol texts are a draft for a native speaker to check. */
   var LSCENE=[
     {chain:[],hand:[[6,6],[5,3],[0,2]],ok:null},
     {chain:[[4,2]],hand:[[5,5],[2,6],[1,3]],ok:1},
@@ -1844,6 +1848,7 @@ header,.placebar,.scores{position:relative;z-index:4}
     }
     draw();
   }
+  /* ---- [D1] the rules panel (the lesson [D4] ends above) ---- */
   function openRules(){
     var h='<h2>'+t('rulesTitle')+'</h2><div style="text-align:left">';
     RULES[S.lang].forEach(function(r){h+='<h3>'+r[0]+'</h3><p style="margin:4px 0 0;color:var(--ink)">'+r[1]+'</p>'});
@@ -2789,7 +2794,7 @@ header,.placebar,.scores{position:relative;z-index:4}
       S.carry={team:done,pts:S.wins[done]-TARGET};
       txt+='\n'+t('carry',{n:S.carry.pts});
     }
-    try{ /* profile stats: one count per finished round, one per finished match */
+    try{ /* profile stats [D3]: one count per finished round, one per finished match */
       STATS.rp++;if(wTeam===team(0))STATS.rw++;
       if(w===null)STATS.blk++;else if(w===0){if(S.dek)STATS.dek++;else STATS.tonbe++}
       if(done>=0){STATS.mp++;if(team(0)===done)STATS.mw++}
