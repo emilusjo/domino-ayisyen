@@ -107,6 +107,25 @@ button.lt:active .tile{transform:scale(.94)}
 .lfb{min-height:46px;font-weight:700;margin:8px 0 2px;text-align:center}
 .lfb.ok{color:#8fe3a0}.lfb.no{color:#ffb4a0}
 .ldots{text-align:center;color:var(--muted);font-size:12px;margin:0 0 6px}
+.av.pic{background:none!important;overflow:hidden;font-size:0}
+.av.pic svg{display:block;width:100%;height:100%;border-radius:50%}
+.youbar .av{width:22px;height:22px;vertical-align:-6px}
+.tagflag{width:18px;height:12px;vertical-align:-1px;margin-left:6px;border-radius:2px}
+.seat .tagflag{width:28px;height:19px;vertical-align:-3px}
+.pfhead{display:flex;align-items:center;gap:14px;margin:4px 0 8px}
+.pfhead .pavbig{width:68px;height:68px;border-radius:50%;overflow:hidden;flex:none;box-shadow:0 0 0 3px rgba(255,255,255,.2)}
+.pfhead svg{display:block;width:100%;height:100%}
+.pfhead .pfn{font-size:20px;font-weight:800}
+.pfhead .pfn small{display:block;font-size:13px;font-weight:600;color:var(--muted);margin-top:3px}
+.pfhead .pfn small svg{width:22px;height:15px;vertical-align:-2px;margin-right:6px;border-radius:2px}
+.avgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:8px 0 4px}
+.flgrid{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}
+button.pav,button.pfl{background:none!important;border:3px solid transparent!important;padding:0!important;margin:0!important;min-height:0!important;overflow:hidden;box-shadow:none!important;width:100%!important}
+button.pav{border-radius:50%!important;aspect-ratio:1}
+button.pav svg{display:block;width:100%;height:100%}
+button.pfl{width:46px!important;height:32px;border-radius:7px!important;color:var(--muted);font-size:12px}
+button.pfl svg{display:block;width:100%;height:100%}
+button.pav.on,button.pfl.on{border-color:var(--gold)!important}
 .tile.lastp{box-shadow:0 0 0 2px var(--gold),0 0 8px 1px rgba(255,205,100,.8)}
 .hist .hdek{margin:6px 0 2px;padding:6px 10px;border-radius:10px;background:rgba(242,193,78,.14);border:1.5px solid var(--gold);font-size:13px;font-weight:700;color:var(--gold)}
 .hist .hline{display:flex;flex-wrap:wrap;gap:3px;margin:6px 0 2px}
@@ -372,7 +391,8 @@ header,.placebar,.scores{position:relative;z-index:4}
 .tag .cnt{margin-left:9px;padding:0 8px;border-radius:999px;background:rgba(246,239,220,.18);font-size:.92em}
 .tag .cnt.low{background:#f4b73f;color:#2a2320}
 .tag .cnt.one{background:#e8553f;color:#fff;animation:pulse3 1s ease-in-out infinite}
-.seat .av{width:26px;height:26px;font-size:15px;margin-right:8px;vertical-align:-6px}
+.seat .av{width:36px;height:36px;font-size:15px;margin-right:8px;vertical-align:-10px}
+.seat .tag{display:inline-flex;align-items:center}
 .chain3{position:absolute;inset:0;transform-style:preserve-3d}
 .readout{position:absolute;left:0;right:0;bottom:16px;display:flex;justify-content:center;gap:14px;transform-style:preserve-3d}
 .readout .pill{padding:6px 18px;border-radius:999px;background:rgba(6,22,19,.62);font-size:22px;font-weight:700;color:#F3EDDC;transform:translateZ(2px)}
@@ -512,7 +532,7 @@ header,.placebar,.scores{position:relative;z-index:4}
      ==================================================================================================== */
 (function(){
   var PIPS=[[],[4],[0,8],[0,4,8],[0,2,6,8],[0,2,4,6,8],[0,2,3,5,6,8]];
-  var DEFNAMES=['','Jan','Mari','Pyè'],NAMES=DEFNAMES.slice(),MYNAME='',CUSTOM=['','','',''];
+  var AVATAR=0,FLAG='',DEFNAMES=['','Jan','Mari','Pyè'],NAMES=DEFNAMES.slice(),MYNAME='',CUSTOM=['','','',''];
   /* only letters, digits, spaces, dots, hyphens and apostrophes, 12 characters at most (so a name can never break the page) */
   function cleanName(v){return String(v==null?'':v).replace(/'/g,'’').replace(/[^\p{L}\p{N} .\-’]/gu,'').replace(/\s+/g,' ').trim().slice(0,12).trim()}
   function setCustomNames(a){
@@ -536,7 +556,7 @@ header,.placebar,.scores{position:relative;z-index:4}
       tonbeTitle:'{n} tonbe!',tonbeOwn:'Ou tonbe!',blocked:'Tab la bloke!',tie:'Egalite. Chak moun pran yon domino: pi piti a genyen.',tieRule:'Sèlman nouvo domino yo konte, pi piti a genyen.',cancel:'Lòt ekip la pèdi {n} pwen li te genyen.',carry:'Ou kòmanse pwochen jwèt la ak {n} pwen siplemantè.',
       roundTo:'Won an pou {n}.',lowest:'Pi piti pwen: {t} ({a}).',
       matchWin:'Ou genyen jwèt la! 🎉',matchLose:'Ou pèdi jwèt la',matchTeamWin:'Ekip ou genyen jwèt la! 🎉',
-      matchWho:'{n} genyen jwèt la.',score:'Pwen',lang:'EN',noteHint:'',pts:'pwen',winsLow:'Pi piti pwen an genyen.',settingsTitle:'Paramèt',profTitle:'Pwofil',profJourney:'Vwayaj ou',profPl:'{n} moun',profStats:'Estatistik',profMatches:'Jwèt',profRounds:'Won',profTonbe:'Tonbe ou fè',profDek:'Dekabès ou fè',profBlocked:'Won bloke',profOf:'{a} genyen sou {b}',profNone:'Ou poko jwe okenn jwèt. Estatistik ou yo ap parèt la.',profReset:'Efase estatistik yo',profSure:'Peze ankò pou konfime',profName:'Chanje non an',learnTitle:'Aprann jwe',namesTitle:'Non jwè yo',namesHelp:'Mete non ou ak non lòt jwè yo. Kite yon bwat vid pou kenbe non nòmal la.',namesMe:'Non ou',namesP:'Jwè {n}',namesPartner:'patnè nan 4 moun',namesSave:'Anrejistre',namesReset:'Retounen nan non nòmal yo',histTitle:'Dènye won yo',histRound:'Won',histLine:'Domino yo sou tab la',histLeft:'Domino ki rete nan men yo',histNone:'Poko gen won ki fini.',tourMode:'Chemen pou {n} jwè',cardHide:'Kache rezilta a',cardShow:'Montre rezilta a',histEnds:'De bout yo: {l} ak {r}',histDek:'Dekabès: domino {t} te genyen de bò yo, {l} ak {r}.',histLastT:'Dènye domino: {t}',histKeep:'Won yo rete 24 è apre yo fini, pou w ka gade kijan dènye pati a te pase.',photosTitle:'Foto yo',photosIntro:'Foto yo soti sou Unsplash. Mèsi bay fotograf yo.',photosMore:'Gen kèk foto ki poko gen non fotograf la.',photosAI:'Imaj ki fèt ak entèlijans atifisyèl',previewing:'Ap gade (pa jwenn li ankò)',tourPreviewHint:'Tape sou nenpòt kote pou gade l.',tourBack:'Tounen nan kote mwen an',tilt3d:'Tab la an 3D',tourTitle:'Tou Domino',tourReached:'Ou rive la',tourHere:'Ou la kounye a',tourNeed:'{n} viktwa',tourStats:'Ou genyen {n} jwèt. Chak viktwa (vièj) louvri yon nouvo kote!',tourLevel:'Nivo bòt yo: {l}. Yo vin pi fò a {w} viktwa.',tourLevelMax:'Nivo bòt yo: 5 (pi fò a).',tourEarlier:'… {n} kote ou deja pase',nextDest:'Pwochen destinasyon',cont:'Kontinye',version:'Vèsyon',vieg:'Vièj!',viegCount:'{t}: {n} vièj',shuffling:'Domino yo ap melanje…',dealing:'Y ap bay chak moun 7 domino…',travel:'Ou rive nan {n}!',toNext:'Ankò {k} viktwa pou ale nan {n}.',here:'Kote ou ye: {n} · {w} viktwa',tieTitle:'Egalite!',tieShuffle:'Domino yo ap melanje…',pickYou:'Chwazi yon domino nan pil la.',pickBot:'{n} ap pran yon domino…',pickRes:'{n}: {t}',pickAgain:'Menm pwen. Nou melanje ankò.',pickWin:'{n} gen pi piti a. Li genyen!',hintLbl:'Montre domino ki ka jwe',rules:'Règ',rulesTitle:'Règ jwèt la',close:'Fèmen',sound:'Son',settings:'Chanje paramèt',installTitle:'Mete jwèt la sou ekran telefòn ou',installTxt:'iPhone: louvri lyen an nan Safari, peze bouton pataj la, answit chwazi “Add to Home Screen”.<br>Android: louvri lyen an nan Chrome, peze meni an (twa pwen), answit chwazi “Add to Home screen”.',tonbeBtn:'M’tonbe!',tonbeNo1:'Ou poko gen yon sèl domino.',tonbeNo2:'Dènye domino ou pa mache.',dek:'Dekabès!',dekOwn:'Dekabès! Ou genyen de bò a.',dekTitle:'{n} dekabès! Li genyen de bò a.',mustPlay:'Ou gen yon domino pou jwe. Ou pa ka pase.'},
+      matchWho:'{n} genyen jwèt la.',score:'Pwen',lang:'EN',noteHint:'',pts:'pwen',winsLow:'Pi piti pwen an genyen.',settingsTitle:'Paramèt',profTitle:'Pwofil',profJourney:'Vwayaj ou',profPl:'{n} moun',profStats:'Estatistik',profMatches:'Jwèt',profRounds:'Won',profTonbe:'Tonbe ou fè',profDek:'Dekabès ou fè',profBlocked:'Won bloke',profOf:'{a} genyen sou {b}',profNone:'Ou poko jwe okenn jwèt. Estatistik ou yo ap parèt la.',profReset:'Efase estatistik yo',profSure:'Peze ankò pou konfime',profName:'Chanje non an',learnTitle:'Aprann jwe',profAvatar:'Avatar ou',profCountry:'Peyi ou',profNoFlag:'Pa gen',namesTitle:'Non jwè yo',namesHelp:'Mete non ou ak non lòt jwè yo. Kite yon bwat vid pou kenbe non nòmal la.',namesMe:'Non ou',namesP:'Jwè {n}',namesPartner:'patnè nan 4 moun',namesSave:'Anrejistre',namesReset:'Retounen nan non nòmal yo',histTitle:'Dènye won yo',histRound:'Won',histLine:'Domino yo sou tab la',histLeft:'Domino ki rete nan men yo',histNone:'Poko gen won ki fini.',tourMode:'Chemen pou {n} jwè',cardHide:'Kache rezilta a',cardShow:'Montre rezilta a',histEnds:'De bout yo: {l} ak {r}',histDek:'Dekabès: domino {t} te genyen de bò yo, {l} ak {r}.',histLastT:'Dènye domino: {t}',histKeep:'Won yo rete 24 è apre yo fini, pou w ka gade kijan dènye pati a te pase.',photosTitle:'Foto yo',photosIntro:'Foto yo soti sou Unsplash. Mèsi bay fotograf yo.',photosMore:'Gen kèk foto ki poko gen non fotograf la.',photosAI:'Imaj ki fèt ak entèlijans atifisyèl',previewing:'Ap gade (pa jwenn li ankò)',tourPreviewHint:'Tape sou nenpòt kote pou gade l.',tourBack:'Tounen nan kote mwen an',tilt3d:'Tab la an 3D',tourTitle:'Tou Domino',tourReached:'Ou rive la',tourHere:'Ou la kounye a',tourNeed:'{n} viktwa',tourStats:'Ou genyen {n} jwèt. Chak viktwa (vièj) louvri yon nouvo kote!',tourLevel:'Nivo bòt yo: {l}. Yo vin pi fò a {w} viktwa.',tourLevelMax:'Nivo bòt yo: 5 (pi fò a).',tourEarlier:'… {n} kote ou deja pase',nextDest:'Pwochen destinasyon',cont:'Kontinye',version:'Vèsyon',vieg:'Vièj!',viegCount:'{t}: {n} vièj',shuffling:'Domino yo ap melanje…',dealing:'Y ap bay chak moun 7 domino…',travel:'Ou rive nan {n}!',toNext:'Ankò {k} viktwa pou ale nan {n}.',here:'Kote ou ye: {n} · {w} viktwa',tieTitle:'Egalite!',tieShuffle:'Domino yo ap melanje…',pickYou:'Chwazi yon domino nan pil la.',pickBot:'{n} ap pran yon domino…',pickRes:'{n}: {t}',pickAgain:'Menm pwen. Nou melanje ankò.',pickWin:'{n} gen pi piti a. Li genyen!',hintLbl:'Montre domino ki ka jwe',rules:'Règ',rulesTitle:'Règ jwèt la',close:'Fèmen',sound:'Son',settings:'Chanje paramèt',installTitle:'Mete jwèt la sou ekran telefòn ou',installTxt:'iPhone: louvri lyen an nan Safari, peze bouton pataj la, answit chwazi “Add to Home Screen”.<br>Android: louvri lyen an nan Chrome, peze meni an (twa pwen), answit chwazi “Add to Home screen”.',tonbeBtn:'M’tonbe!',tonbeNo1:'Ou poko gen yon sèl domino.',tonbeNo2:'Dènye domino ou pa mache.',dek:'Dekabès!',dekOwn:'Dekabès! Ou genyen de bò a.',dekTitle:'{n} dekabès! Li genyen de bò a.',mustPlay:'Ou gen yon domino pou jwe. Ou pa ka pase.'},
     en:{title:'Haitian Domino',you:'You',partner:'partner',ourTeam:'Your team',theirTeam:'Other team',
       left:'Left end',right:'Right end',pass:'M’pase (pass)',drawBtn:'Draw',drawCall:'Draw',pilePick:'Pick a tile from the pile',tonbe:'Tonbe!',
       menu:'New game',next:'Next round',start:'Start',again:'Play again',
@@ -550,9 +570,9 @@ header,.placebar,.scores{position:relative;z-index:4}
       tonbeTitle:'{n} tonbe!',tonbeOwn:'You tonbe!',blocked:'The board is blocked!',tie:'Tie. Each picks a tile: the lowest wins.',tieRule:'Only the new tiles count: the lowest wins.',cancel:'The other side loses its {n} point(s).',carry:'The extra {n} point carries into the next match.',
       roundTo:'Round goes to {n}.',lowest:'Lowest count: {t} ({a}).',
       matchWin:'You win the match! 🎉',matchLose:'You lost the match',matchTeamWin:'Your team wins the match! 🎉',
-      matchWho:'{n} wins the match.',score:'Points',lang:'KR',noteHint:'',pts:'points',winsLow:'Lowest count wins.',settingsTitle:'Settings',profTitle:'Profile',profJourney:'Your journey',profPl:'{n} players',profStats:'Stats',profMatches:'Matches',profRounds:'Rounds',profTonbe:'Dominos you made',profDek:'Dekabès you made',profBlocked:'Blocked rounds',profOf:'{a} won of {b}',profNone:'No match played yet. Your stats will show up here.',profReset:'Reset stats',profSure:'Tap again to confirm',profName:'Change name',learnTitle:'Learn to play',namesTitle:'Player names',namesHelp:'Type your name and the names of the other players. Leave a box empty to keep the usual name.',namesMe:'Your name',namesP:'Player {n}',namesPartner:'partner in a game of 4',namesSave:'Save',namesReset:'Back to the usual names',histTitle:'Past rounds',histRound:'Round',histLine:'The line of play',histLeft:'Tiles left in the hands',histNone:'No round has finished yet.',tourMode:'Journey for {n} players',cardHide:'Fold the result',cardShow:'Show the result',histEnds:'The two ends: {l} and {r}',histDek:'Dekabès: the {t} won both ends, {l} and {r}.',histLastT:'Last tile: {t}',histKeep:'Rounds are kept for 24 hours after they end, to look back at how the last play went.',photosTitle:'Photo credits',photosIntro:'The photos come from Unsplash. Thank you to the photographers.',photosMore:'A few photos do not have their photographer listed yet.',photosAI:'Image made with artificial intelligence',previewing:'Previewing (not reached yet)',tourPreviewHint:'Tap any place to look at it.',tourBack:'Back to my place',tilt3d:'3D table',tourTitle:'Domino Tour',tourReached:'Reached',tourHere:'You are here',tourNeed:'{n} wins',tourStats:'You have won {n} matches. Every win (Vièj) opens a new place!',tourLevel:'Bot level: {l}. They get stronger at {w} wins.',tourLevelMax:'Bot level: 5 (the strongest).',tourEarlier:'… {n} places behind you',nextDest:'Next destination',cont:'Continue',version:'Version',vieg:'Vièj!',viegCount:'{t}: {n} Vièj',shuffling:'Shuffling the tiles…',dealing:'Dealing 7 tiles to each player…',travel:'You travel to {n}!',toNext:'{k} more wins to reach {n}.',here:'You are at: {n} · {w} wins',tieTitle:'Tie!',tieShuffle:'Shuffling the tiles…',pickYou:'Pick a tile from the pile.',pickBot:'{n} is picking a tile…',pickRes:'{n}: {t}',pickAgain:'Same count. Shuffle again.',pickWin:'{n} has the lowest and wins!',hintLbl:'Show tiles I can play',rules:'Rules',rulesTitle:'How to play',close:'Close',sound:'Sound',settings:'Change settings',installTitle:'Put the game on your phone’s home screen',installTxt:'iPhone: open the link in Safari, tap the Share button, then choose “Add to Home Screen”.<br>Android: open the link in Chrome, tap the menu (three dots), then choose “Add to Home screen”.',tonbeBtn:'M’tonbe! (I win)',tonbeNo1:'You still have more than one tile.',tonbeNo2:'Your last tile doesn’t fit.',dek:'Dekabès!',dekOwn:'Dekabès! You win on both ends.',dekTitle:'{n} dekabès! Wins on both ends.',mustPlay:'You have a play. You can’t pass.'}
+      matchWho:'{n} wins the match.',score:'Points',lang:'KR',noteHint:'',pts:'points',winsLow:'Lowest count wins.',settingsTitle:'Settings',profTitle:'Profile',profJourney:'Your journey',profPl:'{n} players',profStats:'Stats',profMatches:'Matches',profRounds:'Rounds',profTonbe:'Dominos you made',profDek:'Dekabès you made',profBlocked:'Blocked rounds',profOf:'{a} won of {b}',profNone:'No match played yet. Your stats will show up here.',profReset:'Reset stats',profSure:'Tap again to confirm',profName:'Change name',learnTitle:'Learn to play',profAvatar:'Your avatar',profCountry:'Your country',profNoFlag:'None',namesTitle:'Player names',namesHelp:'Type your name and the names of the other players. Leave a box empty to keep the usual name.',namesMe:'Your name',namesP:'Player {n}',namesPartner:'partner in a game of 4',namesSave:'Save',namesReset:'Back to the usual names',histTitle:'Past rounds',histRound:'Round',histLine:'The line of play',histLeft:'Tiles left in the hands',histNone:'No round has finished yet.',tourMode:'Journey for {n} players',cardHide:'Fold the result',cardShow:'Show the result',histEnds:'The two ends: {l} and {r}',histDek:'Dekabès: the {t} won both ends, {l} and {r}.',histLastT:'Last tile: {t}',histKeep:'Rounds are kept for 24 hours after they end, to look back at how the last play went.',photosTitle:'Photo credits',photosIntro:'The photos come from Unsplash. Thank you to the photographers.',photosMore:'A few photos do not have their photographer listed yet.',photosAI:'Image made with artificial intelligence',previewing:'Previewing (not reached yet)',tourPreviewHint:'Tap any place to look at it.',tourBack:'Back to my place',tilt3d:'3D table',tourTitle:'Domino Tour',tourReached:'Reached',tourHere:'You are here',tourNeed:'{n} wins',tourStats:'You have won {n} matches. Every win (Vièj) opens a new place!',tourLevel:'Bot level: {l}. They get stronger at {w} wins.',tourLevelMax:'Bot level: 5 (the strongest).',tourEarlier:'… {n} places behind you',nextDest:'Next destination',cont:'Continue',version:'Version',vieg:'Vièj!',viegCount:'{t}: {n} Vièj',shuffling:'Shuffling the tiles…',dealing:'Dealing 7 tiles to each player…',travel:'You travel to {n}!',toNext:'{k} more wins to reach {n}.',here:'You are at: {n} · {w} wins',tieTitle:'Tie!',tieShuffle:'Shuffling the tiles…',pickYou:'Pick a tile from the pile.',pickBot:'{n} is picking a tile…',pickRes:'{n}: {t}',pickAgain:'Same count. Shuffle again.',pickWin:'{n} has the lowest and wins!',hintLbl:'Show tiles I can play',rules:'Rules',rulesTitle:'How to play',close:'Close',sound:'Sound',settings:'Change settings',installTitle:'Put the game on your phone’s home screen',installTxt:'iPhone: open the link in Safari, tap the Share button, then choose “Add to Home Screen”.<br>Android: open the link in Chrome, tap the menu (three dots), then choose “Add to Home screen”.',tonbeBtn:'M’tonbe! (I win)',tonbeNo1:'You still have more than one tile.',tonbeNo2:'Your last tile doesn’t fit.',dek:'Dekabès!',dekOwn:'Dekabès! You win on both ends.',dekTitle:'{n} dekabès! Wins on both ends.',mustPlay:'You have a play. You can’t pass.'}
   };
-  var TARGET=4,BUILD=122; /* raise by one with every change, so the player can check which copy of the page is open (Settings) */
+  var TARGET=4,BUILD=123; /* raise by one with every change, so the player can check which copy of the page is open (Settings) */
   var S={history:[],histN:0,previewIdx:null,portrait:false,bdScene:-1,sceneKey:'',bdIdx:-1,pendingEnd:null,lastCard:null,vieg:[],pickId:0,flight:null,drawFrom:null,shuffling:false,level:1,progress:{wins:0},cfg:{n:4,mode:'nodraw',lang:'kr'},n:4,mode:'nodraw',lang:'kr',players:[],pile:[],chain:[],turn:0,passes:0,leader:0,wins:[],over:true,busy:false,sel:null,fresh:null,bubbles:{},hints:false,sound:true,started:false,msg:'',msgBig:false};
   var $=function(id){return document.getElementById(id)};
 
@@ -560,7 +580,7 @@ header,.placebar,.scores{position:relative;z-index:4}
   /* ---- saved settings (kept on this phone only) ---- */
   var KEY='dominoKreyol.v1';
   function loadPrefs(){try{var r=localStorage.getItem(KEY);if(r){var o=JSON.parse(r);if(o&&typeof o==='object')return o}}catch(e){}return {}}
-  function savePrefs(){try{localStorage.setItem(KEY,JSON.stringify({n:S.cfg.n,mode:S.cfg.mode,lang:S.cfg.lang,hints:S.hints,sound:S.sound,names:CUSTOM}))}catch(e){}}
+  function savePrefs(){try{localStorage.setItem(KEY,JSON.stringify({n:S.cfg.n,mode:S.cfg.mode,lang:S.cfg.lang,hints:S.hints,sound:S.sound,names:CUSTOM,av:AVATAR,flag:FLAG}))}catch(e){}}
   /* ---- the game in progress is saved after every move, so a refresh picks up exactly where it was ---- */
   var GKEY='dominoKreyol.game.v1';
   function saveGame(){
@@ -1470,6 +1490,8 @@ header,.placebar,.scores{position:relative;z-index:4}
     if(typeof pr.hints==='boolean')S.hints=pr.hints;
     if(typeof pr.sound==='boolean')S.sound=pr.sound;
     if(Array.isArray(pr.names))setCustomNames(pr.names);
+    if(pr.av>=0&&pr.av<12)AVATAR=pr.av|0;
+    if(typeof pr.flag==='string')FLAG=pr.flag.slice(0,3);
     document.documentElement.lang=S.lang==='kr'?'ht':'en';
   })();
 
@@ -1659,8 +1681,67 @@ header,.placebar,.scores{position:relative;z-index:4}
     $('stNames').onclick=openNames;
     c2.onclick=function(e){var b=e.target.closest&&e.target.closest('button[data-lang]');if(b){setLang(b.getAttribute('data-lang'));openSettings()}};
   }
+
+  /* ==== avatars and flags, drawn in code (our own faces: people, not mascots) ==== */
+  var AVATARS=[
+    {bg:'#f2d28b',skin:'#8d5524',hair:'short',hc:'#1b1210',acc:'straw',shirt:'#2a9d8f'},
+    {bg:'#9bd8c6',skin:'#6b4226',hair:'none',hc:'#1b1210',acc:'tignon',shirt:'#f2c14e',tc:'#d94a3a'},
+    {bg:'#cfe0ff',skin:'#a0693a',hair:'short',hc:'#1b1210',acc:'flagcap',shirt:'#ffffff'},
+    {bg:'#f6c1a0',skin:'#4a2c17',hair:'afro',hc:'#120b08',acc:'glasses',shirt:'#e76f51'},
+    {bg:'#d7e8b8',skin:'#c68642',hair:'bun',hc:'#2a1a12',acc:'bow',shirt:'#c0392b'},
+    {bg:'#c9b8e8',skin:'#e0ac69',hair:'short',hc:'#3b2a20',acc:'stache',shirt:'#3d5a80'},
+    {bg:'#ffd6e0',skin:'#6b4226',hair:'long',hc:'#120b08',acc:'',shirt:'#8e44ad'},
+    {bg:'#e8e2c8',skin:'#8d5524',hair:'bald',hc:'#cccccc',acc:'glasses stache',shirt:'#6b705c'},
+    {bg:'#bfe3f0',skin:'#c68642',hair:'afro',hc:'#2a1a12',acc:'bow',shirt:'#1f77b4'},
+    {bg:'#fbe0a0',skin:'#4a2c17',hair:'none',hc:'#1b1210',acc:'tignon',shirt:'#e9edf5',tc:'#2f5fb0'},
+    {bg:'#d8f0d0',skin:'#c68642',hair:'short',hc:'#1b1210',acc:'flagcap glasses',shirt:'#f4a261'},
+    {bg:'#ffe3c2',skin:'#f1c27d',hair:'short',hc:'#6b3f1d',acc:'',shirt:'#43a047'}
+  ];
+  function avatarSvg(i){
+    var n=AVATARS.length,a=AVATARS[((i%n)+n)%n],ac=' '+a.acc+' ',tc=a.tc||'#d94a3a',
+      has=function(w){return ac.indexOf(' '+w+' ')>=0},
+      s='<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" fill="'+a.bg+'"/>';
+    if(a.hair==='afro')s+='<circle cx="32" cy="24" r="21" fill="'+a.hc+'"/>';
+    if(a.hair==='long')s+='<path d="M14 30Q12 8 32 8Q52 8 50 30L52 52H12Z" fill="'+a.hc+'"/>';
+    s+='<path d="M6 64Q8 46 32 46Q56 46 58 64Z" fill="'+a.shirt+'"/>'+
+      '<rect x="27" y="38" width="10" height="11" rx="4" fill="'+a.skin+'"/>'+
+      '<ellipse cx="32" cy="29" rx="14" ry="16" fill="'+a.skin+'"/>';
+    if(a.hair==='short'||a.hair==='bun'||a.hair==='afro'||a.hair==='long')s+='<path d="M17.5 27Q16 11 32 11Q48 11 46.5 27Q42 19 32 19Q22 19 17.5 27Z" fill="'+a.hc+'"/>';
+    if(a.hair==='bun')s+='<circle cx="32" cy="9" r="6" fill="'+a.hc+'"/>';
+    s+='<circle cx="26.5" cy="30" r="1.9" fill="#2b1a10"/><circle cx="37.5" cy="30" r="1.9" fill="#2b1a10"/>'+
+      '<circle cx="23" cy="35" r="2.6" fill="#e8737a" opacity=".3"/><circle cx="41" cy="35" r="2.6" fill="#e8737a" opacity=".3"/>'+
+      '<path d="M26 37.5Q32 42.5 38 37.5" fill="none" stroke="#2b1a10" stroke-width="1.8" stroke-linecap="round"/>';
+    if(has('stache'))s+='<path d="M24 35Q32 31.5 40 35Q36 38 32 36Q28 38 24 35Z" fill="'+a.hc+'"/>';
+    if(has('glasses'))s+='<circle cx="26.5" cy="30" r="5" fill="none" stroke="#222" stroke-width="1.5"/><circle cx="37.5" cy="30" r="5" fill="none" stroke="#222" stroke-width="1.5"/><path d="M31.5 29.5H32.5" stroke="#222" stroke-width="1.5"/>';
+    if(has('straw'))s+='<ellipse cx="32" cy="17" rx="22" ry="5.5" fill="#e0b95a"/><path d="M21 17Q21 3 32 3Q43 3 43 17Z" fill="#f0d68a"/><rect x="21" y="12" width="22" height="3.5" fill="#b83a2e"/>';
+    if(has('tignon'))s+='<path d="M16.5 25Q15 6 32 6Q49 6 47.5 25Q41 15 32 15Q23 15 16.5 25Z" fill="'+tc+'"/><path d="M20 14L26 8M27 17L35 7M35 17L43 9" stroke="#f2c14e" stroke-width="2"/><circle cx="46" cy="10" r="5" fill="'+tc+'"/><circle cx="46" cy="10" r="2" fill="#f2c14e"/>';
+    if(has('flagcap'))s+='<path d="M17 22Q17 7 32 7Q47 7 47 22Z" fill="#1f3fa8"/><path d="M32 7Q47 7 47 22H32Z" fill="#d21034"/><path d="M15 22H49Q52 26 44 26H20Q12 26 15 22Z" fill="#12287a"/>';
+    if(has('bow'))s+='<path d="M14 12L23 16L14 20Z M32 12L23 16L32 20Z" fill="#d83a4a"/><circle cx="23" cy="16" r="2.5" fill="#a8222f"/>';
+    return s+'</svg>';
+  }
+  /* the computer players get fixed faces that never match yours */
+  function botAv(p){return (AVATAR+3*p)%AVATARS.length}
+  var FLAGS=[
+    {id:'ht',kr:'Ayiti',en:'Haiti',d:'<rect width="30" height="10" fill="#00209f"/><rect y="10" width="30" height="10" fill="#d21034"/><rect x="10" y="6" width="10" height="8" fill="#fff"/><path d="M15 7.5L17.2 11.8H12.8Z" fill="#1b8a3b"/>'},
+    {id:'us',kr:'Etazini',en:'United States',d:'<rect width="30" height="20" fill="#fff"/><g fill="#b22234"><rect width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.15" width="30" height="1.54"/><rect y="9.23" width="30" height="1.54"/><rect y="12.3" width="30" height="1.54"/><rect y="15.4" width="30" height="1.54"/><rect y="18.46" width="30" height="1.54"/></g><rect width="12" height="10.8" fill="#3c3b6e"/>'},
+    {id:'ca',kr:'Kanada',en:'Canada',d:'<rect width="30" height="20" fill="#fff"/><rect width="7.5" height="20" fill="#d52b1e"/><rect x="22.5" width="7.5" height="20" fill="#d52b1e"/><path d="M15 4L16.6 8L19.5 7.2L18 11.2L20 11.8L15.6 14.6V17H14.4V14.6L10 11.8L12 11.2L10.5 7.2L13.4 8Z" fill="#d52b1e"/>'},
+    {id:'fr',kr:'Frans',en:'France',d:'<rect width="10" height="20" fill="#0055a4"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#ef4135"/>'},
+    {id:'do',kr:'Repiblik Dominikèn',en:'Dominican Republic',d:'<rect width="30" height="20" fill="#fff"/><rect width="13" height="8.5" fill="#002d62"/><rect x="17" width="13" height="8.5" fill="#ce1126"/><rect y="11.5" width="13" height="8.5" fill="#ce1126"/><rect x="17" y="11.5" width="13" height="8.5" fill="#002d62"/>'},
+    {id:'bs',kr:'Bahamas',en:'Bahamas',d:'<rect width="30" height="20" fill="#00778b"/><rect y="6.67" width="30" height="6.67" fill="#ffc72c"/><path d="M0 0L12 10L0 20Z" fill="#000"/>'},
+    {id:'jm',kr:'Jamayik',en:'Jamaica',d:'<rect width="30" height="20" fill="#000"/><path d="M0 0H30L15 10Z M0 20H30L15 10Z" fill="#009b3a"/><path d="M0 0L30 20M30 0L0 20" stroke="#fed100" stroke-width="3"/>'},
+    {id:'br',kr:'Brezil',en:'Brazil',d:'<rect width="30" height="20" fill="#009c3b"/><path d="M15 2.5L27 10L15 17.5L3 10Z" fill="#ffdf00"/><circle cx="15" cy="10" r="4" fill="#002776"/>'},
+    {id:'cl',kr:'Chili',en:'Chile',d:'<rect width="30" height="20" fill="#fff"/><rect y="10" width="30" height="10" fill="#d52b1e"/><rect width="10" height="10" fill="#0039a6"/><circle cx="5" cy="5" r="1.6" fill="#fff"/>'}
+  ];
+  function flagOf(id){for(var i=0;i<FLAGS.length;i++)if(FLAGS[i].id===id)return FLAGS[i];return null}
+  function flagSvg(id,cls){var f=flagOf(id);return f?'<svg viewBox="0 0 30 20" preserveAspectRatio="none"'+(cls?' class="'+cls+'"':'')+' aria-hidden="true">'+f.d+'</svg>':''}
+  function pickAvatar(i){AVATAR=i;savePrefs();if(S.started)render()}
+  function pickFlag(id){FLAG=id;savePrefs();if(S.started)render()}
   function openProfile(){
-    var h='<h2>'+t('profTitle')+'</h2><div style="text-align:left"><h3>'+(MYNAME||t('you')).replace(/</g,'&lt;')+'</h3>'+
+    var fo=flagOf(FLAG),h='<h2>'+t('profTitle')+'</h2><div class="pfhead"><div class="pavbig">'+avatarSvg(AVATAR)+'</div><div class="pfn" style="text-align:left">'+(MYNAME||t('you')).replace(/</g,'&lt;')+
+      (fo?'<small>'+flagSvg(FLAG)+(S.lang==='kr'?fo.kr:fo.en)+'</small>':'')+'</div></div><div style="text-align:left">'+
+      '<h3>'+t('profAvatar')+'</h3><div class="avgrid">'+AVATARS.map(function(x,i){return '<button class="pav'+(i===AVATAR?' on':'')+'" data-av="'+i+'" aria-label="'+(i+1)+'">'+avatarSvg(i)+'</button>'}).join('')+'</div>'+
+      '<h3>'+t('profCountry')+'</h3><div class="flgrid"><button class="pfl'+(FLAG?'':' on')+'" data-fl="" aria-label="'+t('profNoFlag')+'">\u2014</button>'+
+      FLAGS.map(function(x){return '<button class="pfl'+(x.id===FLAG?' on':'')+'" data-fl="'+x.id+'" aria-label="'+(S.lang==='kr'?x.kr:x.en)+'">'+flagSvg(x.id)+'</button>'}).join('')+'</div>'+
       '<h3>'+t('profJourney')+'</h3>',k;
     [2,3,4].forEach(function(k){h+='<div class="swrow"><span>'+t('profPl',{n:k})+'</span><b>'+placeLabel(WINS[k])+' \u00b7 '+WINS[k]+' \u2605</b></div>'});
     h+='<h3>'+t('profStats')+'</h3>';
@@ -1677,6 +1758,11 @@ header,.placebar,.scores{position:relative;z-index:4}
     c2.onclick=null;
     c2.innerHTML=h;
     $('ov2').classList.add('on');
+    c2.onclick=function(e){
+      var b=e.target.closest&&e.target.closest('button');if(!b)return;
+      if(b.hasAttribute('data-av')){pickAvatar(+b.getAttribute('data-av'));openProfile()}
+      else if(b.hasAttribute('data-fl')){pickFlag(b.getAttribute('data-fl'));openProfile()}
+    };
     $('pfClose').onclick=function(){$('ov2').classList.remove('on')};
     $('pfName').onclick=openNames;
     var armed=false;
@@ -2901,13 +2987,14 @@ header,.placebar,.scores{position:relative;z-index:4}
       seat.style.display='';st.className='stack';
       var call=S.shuffling?'':(S.bubbles[p]||'');
       if(call)tag.textContent=call;
-      else{var nl=S.players[p].hand.length;tag.innerHTML='<i class="av" style="background:'+AVC[p%AVC.length]+'">'+shortName(p).charAt(0)+'</i>'+(S.n===4&&p===2?'🤝 ':'')+shortName(p)+(S.shuffling||!S.started?'':'<b class="cnt'+(nl===1?' one':(nl===2?' low':''))+'">'+nl+'</b>')}
+      else{var nl=S.players[p].hand.length;tag.innerHTML='<i class="av pic">'+avatarSvg(botAv(p))+'</i>'+(S.n===4&&p===2?'🤝 ':'')+shortName(p)+(S.shuffling||!S.started?'':'<b class="cnt'+(nl===1?' one':(nl===2?' low':''))+'">'+nl+'</b>')}
       tag.className='tag'+(call?' call':(S.turn===p&&!S.over&&!S.shuffling?' turn':''));
       for(i=0;i<S.players[p].hand.length;i++)h+=t3(tw,th,TS,'<div class="tp back"></div>','');
       st.innerHTML=h;
     });
     var callS=S.shuffling?'':(S.bubbles[0]||'');
-    $('tagS').textContent=callS||shortName(0);
+    if(callS)$('tagS').textContent=callS;
+    else $('tagS').innerHTML='<i class="av pic">'+avatarSvg(AVATAR)+'</i>'+String(shortName(0)).replace(/&/g,'&amp;').replace(/</g,'&lt;')+(FLAG?flagSvg(FLAG,'tagflag'):'');
     $('tagS').className='tag'+(callS?' call':(S.turn===0&&!S.over&&!S.shuffling?' turn':''));
 
     /* the line of play, in design pixels on the felt, with its two open-end slots (found by laying out a dummy tile at each end) */
