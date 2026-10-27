@@ -1,9 +1,9 @@
-/* Domino Lakay: lets the game open with no internet.
+/* Domino Ayisyen: lets the game open with no internet.
    - the page itself: network first (so a new version arrives as soon as there is a connection), saved copy when offline
      or when the network is slower than 3 seconds
    - fonts and icons: saved copy first
    Change VERSION when the list of files changes. */
-const VERSION = 'dk-21';
+const VERSION = 'dk-22';
 const FILES = [
   './',
   'index.html',
