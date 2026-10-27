@@ -99,6 +99,14 @@ header h1{font-size:22px;line-height:1.05;margin:0;font-weight:800;letter-spacin
 .nin:focus{outline:2px solid var(--gold);outline-offset:1px}
 .hist{border:1.5px solid var(--line);border-radius:12px;padding:10px;margin:10px 0}
 .hist .hhd{font-size:14px}.hist .hsc2{font-size:12px;color:var(--muted);margin-top:6px}
+.lrow{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:8px 0}
+.lfelt{background:rgba(0,0,0,.28);border-radius:12px;padding:10px 6px;margin:10px 0 4px}
+.lfelt small{display:block;text-align:center;color:var(--muted);margin-top:4px}
+button.lt{background:none!important;border:0!important;box-shadow:none!important;padding:4px!important;margin:0!important;width:auto!important;min-height:0!important}
+button.lt:active .tile{transform:scale(.94)}
+.lfb{min-height:46px;font-weight:700;margin:8px 0 2px;text-align:center}
+.lfb.ok{color:#8fe3a0}.lfb.no{color:#ffb4a0}
+.ldots{text-align:center;color:var(--muted);font-size:12px;margin:0 0 6px}
 .tile.lastp{box-shadow:0 0 0 2px var(--gold),0 0 8px 1px rgba(255,205,100,.8)}
 .hist .hdek{margin:6px 0 2px;padding:6px 10px;border-radius:10px;background:rgba(242,193,78,.14);border:1.5px solid var(--gold);font-size:13px;font-weight:700;color:var(--gold)}
 .hist .hline{display:flex;flex-wrap:wrap;gap:3px;margin:6px 0 2px}
@@ -528,7 +536,7 @@ header,.placebar,.scores{position:relative;z-index:4}
       tonbeTitle:'{n} tonbe!',tonbeOwn:'Ou tonbe!',blocked:'Tab la bloke!',tie:'Egalite. Chak moun pran yon domino: pi piti a genyen.',tieRule:'Sèlman nouvo domino yo konte, pi piti a genyen.',cancel:'Lòt ekip la pèdi {n} pwen li te genyen.',carry:'Ou kòmanse pwochen jwèt la ak {n} pwen siplemantè.',
       roundTo:'Won an pou {n}.',lowest:'Pi piti pwen: {t} ({a}).',
       matchWin:'Ou genyen jwèt la! 🎉',matchLose:'Ou pèdi jwèt la',matchTeamWin:'Ekip ou genyen jwèt la! 🎉',
-      matchWho:'{n} genyen jwèt la.',score:'Pwen',lang:'EN',noteHint:'',pts:'pwen',winsLow:'Pi piti pwen an genyen.',settingsTitle:'Paramèt',profTitle:'Pwofil',profJourney:'Vwayaj ou',profPl:'{n} moun',profStats:'Estatistik',profMatches:'Jwèt',profRounds:'Won',profTonbe:'Tonbe ou fè',profDek:'Dekabès ou fè',profBlocked:'Won bloke',profOf:'{a} genyen sou {b}',profNone:'Ou poko jwe okenn jwèt. Estatistik ou yo ap parèt la.',profReset:'Efase estatistik yo',profSure:'Peze ankò pou konfime',profName:'Chanje non an',namesTitle:'Non jwè yo',namesHelp:'Mete non ou ak non lòt jwè yo. Kite yon bwat vid pou kenbe non nòmal la.',namesMe:'Non ou',namesP:'Jwè {n}',namesPartner:'patnè nan 4 moun',namesSave:'Anrejistre',namesReset:'Retounen nan non nòmal yo',histTitle:'Dènye won yo',histRound:'Won',histLine:'Domino yo sou tab la',histLeft:'Domino ki rete nan men yo',histNone:'Poko gen won ki fini.',tourMode:'Chemen pou {n} jwè',cardHide:'Kache rezilta a',cardShow:'Montre rezilta a',histEnds:'De bout yo: {l} ak {r}',histDek:'Dekabès: domino {t} te genyen de bò yo, {l} ak {r}.',histLastT:'Dènye domino: {t}',histKeep:'Won yo rete 24 è apre yo fini, pou w ka gade kijan dènye pati a te pase.',photosTitle:'Foto yo',photosIntro:'Foto yo soti sou Unsplash. Mèsi bay fotograf yo.',photosMore:'Gen kèk foto ki poko gen non fotograf la.',photosAI:'Imaj ki fèt ak entèlijans atifisyèl',previewing:'Ap gade (pa jwenn li ankò)',tourPreviewHint:'Tape sou nenpòt kote pou gade l.',tourBack:'Tounen nan kote mwen an',tilt3d:'Tab la an 3D',tourTitle:'Tou Domino',tourReached:'Ou rive la',tourHere:'Ou la kounye a',tourNeed:'{n} viktwa',tourStats:'Ou genyen {n} jwèt. Chak viktwa (vièj) louvri yon nouvo kote!',tourLevel:'Nivo bòt yo: {l}. Yo vin pi fò a {w} viktwa.',tourLevelMax:'Nivo bòt yo: 5 (pi fò a).',tourEarlier:'… {n} kote ou deja pase',nextDest:'Pwochen destinasyon',cont:'Kontinye',version:'Vèsyon',vieg:'Vièj!',viegCount:'{t}: {n} vièj',shuffling:'Domino yo ap melanje…',dealing:'Y ap bay chak moun 7 domino…',travel:'Ou rive nan {n}!',toNext:'Ankò {k} viktwa pou ale nan {n}.',here:'Kote ou ye: {n} · {w} viktwa',tieTitle:'Egalite!',tieShuffle:'Domino yo ap melanje…',pickYou:'Chwazi yon domino nan pil la.',pickBot:'{n} ap pran yon domino…',pickRes:'{n}: {t}',pickAgain:'Menm pwen. Nou melanje ankò.',pickWin:'{n} gen pi piti a. Li genyen!',hintLbl:'Montre domino ki ka jwe',rules:'Règ',rulesTitle:'Règ jwèt la',close:'Fèmen',sound:'Son',settings:'Chanje paramèt',installTitle:'Mete jwèt la sou ekran telefòn ou',installTxt:'iPhone: louvri lyen an nan Safari, peze bouton pataj la, answit chwazi “Add to Home Screen”.<br>Android: louvri lyen an nan Chrome, peze meni an (twa pwen), answit chwazi “Add to Home screen”.',tonbeBtn:'M’tonbe!',tonbeNo1:'Ou poko gen yon sèl domino.',tonbeNo2:'Dènye domino ou pa mache.',dek:'Dekabès!',dekOwn:'Dekabès! Ou genyen de bò a.',dekTitle:'{n} dekabès! Li genyen de bò a.',mustPlay:'Ou gen yon domino pou jwe. Ou pa ka pase.'},
+      matchWho:'{n} genyen jwèt la.',score:'Pwen',lang:'EN',noteHint:'',pts:'pwen',winsLow:'Pi piti pwen an genyen.',settingsTitle:'Paramèt',profTitle:'Pwofil',profJourney:'Vwayaj ou',profPl:'{n} moun',profStats:'Estatistik',profMatches:'Jwèt',profRounds:'Won',profTonbe:'Tonbe ou fè',profDek:'Dekabès ou fè',profBlocked:'Won bloke',profOf:'{a} genyen sou {b}',profNone:'Ou poko jwe okenn jwèt. Estatistik ou yo ap parèt la.',profReset:'Efase estatistik yo',profSure:'Peze ankò pou konfime',profName:'Chanje non an',learnTitle:'Aprann jwe',namesTitle:'Non jwè yo',namesHelp:'Mete non ou ak non lòt jwè yo. Kite yon bwat vid pou kenbe non nòmal la.',namesMe:'Non ou',namesP:'Jwè {n}',namesPartner:'patnè nan 4 moun',namesSave:'Anrejistre',namesReset:'Retounen nan non nòmal yo',histTitle:'Dènye won yo',histRound:'Won',histLine:'Domino yo sou tab la',histLeft:'Domino ki rete nan men yo',histNone:'Poko gen won ki fini.',tourMode:'Chemen pou {n} jwè',cardHide:'Kache rezilta a',cardShow:'Montre rezilta a',histEnds:'De bout yo: {l} ak {r}',histDek:'Dekabès: domino {t} te genyen de bò yo, {l} ak {r}.',histLastT:'Dènye domino: {t}',histKeep:'Won yo rete 24 è apre yo fini, pou w ka gade kijan dènye pati a te pase.',photosTitle:'Foto yo',photosIntro:'Foto yo soti sou Unsplash. Mèsi bay fotograf yo.',photosMore:'Gen kèk foto ki poko gen non fotograf la.',photosAI:'Imaj ki fèt ak entèlijans atifisyèl',previewing:'Ap gade (pa jwenn li ankò)',tourPreviewHint:'Tape sou nenpòt kote pou gade l.',tourBack:'Tounen nan kote mwen an',tilt3d:'Tab la an 3D',tourTitle:'Tou Domino',tourReached:'Ou rive la',tourHere:'Ou la kounye a',tourNeed:'{n} viktwa',tourStats:'Ou genyen {n} jwèt. Chak viktwa (vièj) louvri yon nouvo kote!',tourLevel:'Nivo bòt yo: {l}. Yo vin pi fò a {w} viktwa.',tourLevelMax:'Nivo bòt yo: 5 (pi fò a).',tourEarlier:'… {n} kote ou deja pase',nextDest:'Pwochen destinasyon',cont:'Kontinye',version:'Vèsyon',vieg:'Vièj!',viegCount:'{t}: {n} vièj',shuffling:'Domino yo ap melanje…',dealing:'Y ap bay chak moun 7 domino…',travel:'Ou rive nan {n}!',toNext:'Ankò {k} viktwa pou ale nan {n}.',here:'Kote ou ye: {n} · {w} viktwa',tieTitle:'Egalite!',tieShuffle:'Domino yo ap melanje…',pickYou:'Chwazi yon domino nan pil la.',pickBot:'{n} ap pran yon domino…',pickRes:'{n}: {t}',pickAgain:'Menm pwen. Nou melanje ankò.',pickWin:'{n} gen pi piti a. Li genyen!',hintLbl:'Montre domino ki ka jwe',rules:'Règ',rulesTitle:'Règ jwèt la',close:'Fèmen',sound:'Son',settings:'Chanje paramèt',installTitle:'Mete jwèt la sou ekran telefòn ou',installTxt:'iPhone: louvri lyen an nan Safari, peze bouton pataj la, answit chwazi “Add to Home Screen”.<br>Android: louvri lyen an nan Chrome, peze meni an (twa pwen), answit chwazi “Add to Home screen”.',tonbeBtn:'M’tonbe!',tonbeNo1:'Ou poko gen yon sèl domino.',tonbeNo2:'Dènye domino ou pa mache.',dek:'Dekabès!',dekOwn:'Dekabès! Ou genyen de bò a.',dekTitle:'{n} dekabès! Li genyen de bò a.',mustPlay:'Ou gen yon domino pou jwe. Ou pa ka pase.'},
     en:{title:'Domino Lakay',you:'You',partner:'partner',ourTeam:'Your team',theirTeam:'Other team',
       left:'Left end',right:'Right end',pass:'M’pase (pass)',drawBtn:'Draw',drawCall:'Draw',pilePick:'Pick a tile from the pile',tonbe:'Tonbe!',
       menu:'New game',next:'Next round',start:'Start',again:'Play again',
@@ -542,9 +550,9 @@ header,.placebar,.scores{position:relative;z-index:4}
       tonbeTitle:'{n} tonbe!',tonbeOwn:'You tonbe!',blocked:'The board is blocked!',tie:'Tie. Each picks a tile: the lowest wins.',tieRule:'Only the new tiles count: the lowest wins.',cancel:'The other side loses its {n} point(s).',carry:'The extra {n} point carries into the next match.',
       roundTo:'Round goes to {n}.',lowest:'Lowest count: {t} ({a}).',
       matchWin:'You win the match! 🎉',matchLose:'You lost the match',matchTeamWin:'Your team wins the match! 🎉',
-      matchWho:'{n} wins the match.',score:'Points',lang:'KR',noteHint:'',pts:'points',winsLow:'Lowest count wins.',settingsTitle:'Settings',profTitle:'Profile',profJourney:'Your journey',profPl:'{n} players',profStats:'Stats',profMatches:'Matches',profRounds:'Rounds',profTonbe:'Dominos you made',profDek:'Dekabès you made',profBlocked:'Blocked rounds',profOf:'{a} won of {b}',profNone:'No match played yet. Your stats will show up here.',profReset:'Reset stats',profSure:'Tap again to confirm',profName:'Change name',namesTitle:'Player names',namesHelp:'Type your name and the names of the other players. Leave a box empty to keep the usual name.',namesMe:'Your name',namesP:'Player {n}',namesPartner:'partner in a game of 4',namesSave:'Save',namesReset:'Back to the usual names',histTitle:'Past rounds',histRound:'Round',histLine:'The line of play',histLeft:'Tiles left in the hands',histNone:'No round has finished yet.',tourMode:'Journey for {n} players',cardHide:'Fold the result',cardShow:'Show the result',histEnds:'The two ends: {l} and {r}',histDek:'Dekabès: the {t} won both ends, {l} and {r}.',histLastT:'Last tile: {t}',histKeep:'Rounds are kept for 24 hours after they end, to look back at how the last play went.',photosTitle:'Photo credits',photosIntro:'The photos come from Unsplash. Thank you to the photographers.',photosMore:'A few photos do not have their photographer listed yet.',photosAI:'Image made with artificial intelligence',previewing:'Previewing (not reached yet)',tourPreviewHint:'Tap any place to look at it.',tourBack:'Back to my place',tilt3d:'3D table',tourTitle:'Domino Tour',tourReached:'Reached',tourHere:'You are here',tourNeed:'{n} wins',tourStats:'You have won {n} matches. Every win (Vièj) opens a new place!',tourLevel:'Bot level: {l}. They get stronger at {w} wins.',tourLevelMax:'Bot level: 5 (the strongest).',tourEarlier:'… {n} places behind you',nextDest:'Next destination',cont:'Continue',version:'Version',vieg:'Vièj!',viegCount:'{t}: {n} Vièj',shuffling:'Shuffling the tiles…',dealing:'Dealing 7 tiles to each player…',travel:'You travel to {n}!',toNext:'{k} more wins to reach {n}.',here:'You are at: {n} · {w} wins',tieTitle:'Tie!',tieShuffle:'Shuffling the tiles…',pickYou:'Pick a tile from the pile.',pickBot:'{n} is picking a tile…',pickRes:'{n}: {t}',pickAgain:'Same count. Shuffle again.',pickWin:'{n} has the lowest and wins!',hintLbl:'Show tiles I can play',rules:'Rules',rulesTitle:'How to play',close:'Close',sound:'Sound',settings:'Change settings',installTitle:'Put the game on your phone’s home screen',installTxt:'iPhone: open the link in Safari, tap the Share button, then choose “Add to Home Screen”.<br>Android: open the link in Chrome, tap the menu (three dots), then choose “Add to Home screen”.',tonbeBtn:'M’tonbe! (I win)',tonbeNo1:'You still have more than one tile.',tonbeNo2:'Your last tile doesn’t fit.',dek:'Dekabès!',dekOwn:'Dekabès! You win on both ends.',dekTitle:'{n} dekabès! Wins on both ends.',mustPlay:'You have a play. You can’t pass.'}
+      matchWho:'{n} wins the match.',score:'Points',lang:'KR',noteHint:'',pts:'points',winsLow:'Lowest count wins.',settingsTitle:'Settings',profTitle:'Profile',profJourney:'Your journey',profPl:'{n} players',profStats:'Stats',profMatches:'Matches',profRounds:'Rounds',profTonbe:'Dominos you made',profDek:'Dekabès you made',profBlocked:'Blocked rounds',profOf:'{a} won of {b}',profNone:'No match played yet. Your stats will show up here.',profReset:'Reset stats',profSure:'Tap again to confirm',profName:'Change name',learnTitle:'Learn to play',namesTitle:'Player names',namesHelp:'Type your name and the names of the other players. Leave a box empty to keep the usual name.',namesMe:'Your name',namesP:'Player {n}',namesPartner:'partner in a game of 4',namesSave:'Save',namesReset:'Back to the usual names',histTitle:'Past rounds',histRound:'Round',histLine:'The line of play',histLeft:'Tiles left in the hands',histNone:'No round has finished yet.',tourMode:'Journey for {n} players',cardHide:'Fold the result',cardShow:'Show the result',histEnds:'The two ends: {l} and {r}',histDek:'Dekabès: the {t} won both ends, {l} and {r}.',histLastT:'Last tile: {t}',histKeep:'Rounds are kept for 24 hours after they end, to look back at how the last play went.',photosTitle:'Photo credits',photosIntro:'The photos come from Unsplash. Thank you to the photographers.',photosMore:'A few photos do not have their photographer listed yet.',photosAI:'Image made with artificial intelligence',previewing:'Previewing (not reached yet)',tourPreviewHint:'Tap any place to look at it.',tourBack:'Back to my place',tilt3d:'3D table',tourTitle:'Domino Tour',tourReached:'Reached',tourHere:'You are here',tourNeed:'{n} wins',tourStats:'You have won {n} matches. Every win (Vièj) opens a new place!',tourLevel:'Bot level: {l}. They get stronger at {w} wins.',tourLevelMax:'Bot level: 5 (the strongest).',tourEarlier:'… {n} places behind you',nextDest:'Next destination',cont:'Continue',version:'Version',vieg:'Vièj!',viegCount:'{t}: {n} Vièj',shuffling:'Shuffling the tiles…',dealing:'Dealing 7 tiles to each player…',travel:'You travel to {n}!',toNext:'{k} more wins to reach {n}.',here:'You are at: {n} · {w} wins',tieTitle:'Tie!',tieShuffle:'Shuffling the tiles…',pickYou:'Pick a tile from the pile.',pickBot:'{n} is picking a tile…',pickRes:'{n}: {t}',pickAgain:'Same count. Shuffle again.',pickWin:'{n} has the lowest and wins!',hintLbl:'Show tiles I can play',rules:'Rules',rulesTitle:'How to play',close:'Close',sound:'Sound',settings:'Change settings',installTitle:'Put the game on your phone’s home screen',installTxt:'iPhone: open the link in Safari, tap the Share button, then choose “Add to Home Screen”.<br>Android: open the link in Chrome, tap the menu (three dots), then choose “Add to Home screen”.',tonbeBtn:'M’tonbe! (I win)',tonbeNo1:'You still have more than one tile.',tonbeNo2:'Your last tile doesn’t fit.',dek:'Dekabès!',dekOwn:'Dekabès! You win on both ends.',dekTitle:'{n} dekabès! Wins on both ends.',mustPlay:'You have a play. You can’t pass.'}
   };
-  var TARGET=4,BUILD=120; /* raise by one with every change, so the player can check which copy of the page is open (Settings) */
+  var TARGET=4,BUILD=121; /* raise by one with every change, so the player can check which copy of the page is open (Settings) */
   var S={history:[],histN:0,previewIdx:null,portrait:false,bdScene:-1,sceneKey:'',bdIdx:-1,pendingEnd:null,lastCard:null,vieg:[],pickId:0,flight:null,drawFrom:null,shuffling:false,level:1,progress:{wins:0},cfg:{n:4,mode:'nodraw',lang:'kr'},n:4,mode:'nodraw',lang:'kr',players:[],pile:[],chain:[],turn:0,passes:0,leader:0,wins:[],over:true,busy:false,sel:null,fresh:null,bubbles:{},hints:false,sound:true,started:false,msg:'',msgBig:false};
   var $=function(id){return document.getElementById(id)};
 
@@ -1629,7 +1637,8 @@ header,.placebar,.scores{position:relative;z-index:4}
       '<h3>Lang / Language</h3><div class="seg"><button data-lang="kr" class="'+(S.lang==='kr'?'on':'')+'">Kreyòl</button><button data-lang="en" class="'+(S.lang==='en'?'on':'')+'">English</button></div>'+
       '<label class="swrow"><span>'+t('sound')+'</span><input type="checkbox" class="sw" id="swSound"'+(S.sound?' checked':'')+'></label>'+
       '<label class="swrow"><span>'+t('hintLbl')+'</span><input type="checkbox" class="sw" id="swHints"'+(S.hints?' checked':'')+'></label></div>'+
-      '<button id="stProf" class="alt" style="margin-top:14px;width:100%">\uD83D\uDC64 '+t('profTitle')+'</button>'+
+      '<button id="stLearn" class="alt" style="margin-top:14px;width:100%">\uD83D\uDCD6 '+t('learnTitle')+'</button>'+
+      '<button id="stProf" class="alt" style="margin-top:8px;width:100%">\uD83D\uDC64 '+t('profTitle')+'</button>'+
       '<button id="stRules" class="alt" style="margin-top:8px;width:100%">'+t('rulesTitle')+'</button>'+
       '<button id="stHist" class="alt" style="margin-top:8px;width:100%">🕘 '+t('histTitle')+(S.history.length?' ('+S.history.length+')':'')+'</button>'+
       '<button id="stNames" class="alt" style="margin-top:8px;width:100%">'+t('namesTitle')+'</button>'+
@@ -1642,6 +1651,7 @@ header,.placebar,.scores{position:relative;z-index:4}
     $('swSound').onchange=function(){S.sound=this.checked;savePrefs();if(S.sound)sfx('tile')};
     $('swHints').onchange=function(){S.hints=this.checked;savePrefs();render()};
     $('stClose').onclick=function(){$('ov2').classList.remove('on')};
+    $('stLearn').onclick=function(){openLearn(0)};
     $('stProf').onclick=openProfile;
     $('stRules').onclick=openRules;
     $('stHist').onclick=openHistory;
@@ -1674,6 +1684,79 @@ header,.placebar,.scores{position:relative;z-index:4}
       if(!armed){armed=true;this.textContent=t('profSure');return}
       for(var x in STATS)STATS[x]=0;saveStats();openProfile();
     };
+  }
+
+  /* ==== Learn to play: a short lesson with real tiles. It never touches the game in progress. Kreyol texts are a draft for a native speaker to check. ==== */
+  var LSCENE=[
+    {chain:[],hand:[[6,6],[5,3],[0,2]],ok:null},
+    {chain:[[4,2]],hand:[[5,5],[2,6],[1,3]],ok:1},
+    {chain:[[3,6]],hand:[[1,1],[2,4],[0,5]],ok:'pass'},
+    {chain:[[3,5],[5,3]],hand:[[3,1]],ok:0},
+    {chain:[[2,6],[6,1]],hand:[[2,1]],ok:0},
+    {chain:[],hand:[],ok:null}
+  ];
+  var LEARN={
+    kr:{next:'Pwochen',back:'Dèyè',close:'Fèmen',start:'Kòmanse jwe',step:'{a} sou {b}',pass:'M’pase',ends:'Bò yo:',
+      steps:[
+        {h:'Domino yo',p:'Gen 28 domino. Chak domino gen de nimewo. Chak moun pran 7, epi nou jwe youn apre lòt. Premye moun ki fini tout domino li yo genyen won an.'},
+        {h:'Jwe yon domino',p:'Mete yon domino ki gen menm nimewo ak yon bò tab la. Bò yo se 4 ak 2. Peze domino ki mache a.',good:'Byen jwe! Ou mete 2 la bò 2 la. Kounye a bò yo se 4 ak 6.',bad:'Domino sa a pa mache: li dwe gen yon 4 oswa yon 2. Eseye yon lòt.'},
+        {h:'M’pase',p:'Kounye a bò yo se 3 ak 6, epi ou pa gen okenn domino ki mache. Lè sa a, ou di “m’pase”. Peze M’pase.',good:'Se sa! Ou pa t gen anyen pou jwe, kidonk ou pase epi tou a ale bay lòt moun.',bad:'Domino sa a pa mache: pa gen 3 ni 6 ladan l. Peze M’pase.'},
+        {h:'M’tonbe',p:'Ou gen yon sèl domino ki rete. Bò yo se 3 ak 3. Jwe l!',good:'M’tonbe! Ou jwe dènye domino ou, ou genyen won an (+1 pwen).',bad:''},
+        {h:'Dekabès',p:'Bò yo se 2 ak 1, epi dènye domino ou se 2-1: li mache nan de bò yo. Jwe l!',good:'Dekabès! Domino ou mache nan de bò yo, kidonk ou genyen de bò a epi won an konte pou 2 pwen.',bad:''},
+        {h:'Jwèt la',p:'Premye moun oswa ekip ki genyen 4 won youn dèyè lòt genyen jwèt la: se yon Vièj. M’tonbe konte 1, dekabès konte 2, tab bloke konte 1. Si lòt moun genyen yon won, pwen ou tounen zewo. Ou pare: peze Kòmanse jwe.'}
+      ]},
+    en:{next:'Next',back:'Back',close:'Close',start:'Start playing',step:'{a} of {b}',pass:'M’pase',ends:'Ends:',
+      steps:[
+        {h:'The tiles',p:'There are 28 tiles. Each tile has two numbers. Everyone takes 7 and you play one after another. The first player to use all their tiles wins the round.'},
+        {h:'Play a tile',p:'Play a tile that has the same number as one end of the table. The ends are 4 and 2. Tap the tile that fits.',good:'Well played! The 2 touches the 2. Now the ends are 4 and 6.',bad:'That tile does not fit: it needs a 4 or a 2. Try another.'},
+        {h:'M’pase (pass)',p:'Now the ends are 3 and 6, and none of your tiles fits. Then you say “m’pase”. Tap M’pase.',good:'That is it! You had nothing to play, so you pass and the turn goes to the next player.',bad:'That tile does not fit: it has no 3 and no 6. Tap M’pase.'},
+        {h:'M’tonbe',p:'You have only one tile left. The ends are 3 and 3. Play it!',good:'M’tonbe! You played your last tile and you win the round (+1 point).',bad:''},
+        {h:'Dekabès',p:'The ends are 2 and 1, and your last tile is 2-1: it fits both ends. Play it!',good:'Dekabès! Your tile fits both ends, so you win on both sides and the round counts 2 points.',bad:''},
+        {h:'The match',p:'The first player or team to win 4 rounds in a row wins the match: that is a Vièj. A tonbe counts 1, a dekabès counts 2, a blocked table counts 1. If the other side wins a round, your points go back to 0. You are ready: tap Start playing.'}
+      ]}
+  };
+  function openLearn(si){
+    si=si||0;
+    var LL=LEARN[S.lang]||LEARN.kr,sc=LSCENE[si],tx=LL.steps[si],last=si===LSCENE.length-1;
+    var chain=sc.chain.map(function(x){return [x[0],x[1]]}),hand=sc.hand.map(function(x){return [x[0],x[1]]}),solved=sc.ok===null,fb='',fbc='';
+    function place(tile){
+      var r=chain.length?chain[chain.length-1][1]:null,x=tile[0],y=tile[1];
+      if(r===null||x===r)chain.push([x,y]);else if(y===r)chain.push([y,x]);else if(y===chain[0][0])chain.unshift([x,y]);else chain.unshift([y,x]);
+    }
+    function lt(x,y){return '<div class="tile h" style="--s:30px">'+pips(x)+pips(y)+'</div>'}
+    function draw(){
+      var h='<h2>'+tx.h+'</h2><p class="ldots">'+LL.step.replace('{a}',si+1).replace('{b}',LSCENE.length)+'</p><p style="margin:0;text-align:left">'+tx.p+'</p>';
+      if(chain.length){
+        h+='<div class="lfelt"><div class="lrow">'+chain.map(function(x){return lt(x[0],x[1])}).join('')+'</div><small>'+LL.ends+' '+chain[0][0]+' \u00b7 '+chain[chain.length-1][1]+'</small></div>';
+      }
+      if(hand.length||sc.ok==='pass'){
+        h+='<div class="lrow">'+hand.map(function(x,i){return '<button class="lt" data-act="tile" data-i="'+i+'">'+lt(x[0],x[1])+'</button>'}).join('')+'</div>';
+      }
+      if(sc.ok==='pass'&&!solved)h+='<button data-act="pass" style="width:100%;margin-top:6px">'+LL.pass+'</button>';
+      h+='<p class="lfb'+(fbc?' '+fbc:'')+'">'+fb+'</p>';
+      h+='<div style="display:flex;gap:8px"><button class="alt" data-act="back" style="flex:1"'+(si===0?' disabled':'')+'>'+LL.back+'</button>'+
+        '<button data-act="next" style="flex:2"'+(solved?'':' disabled')+'>'+(last?LL.start:LL.next)+'</button></div>'+
+        '<button class="alt" data-act="close" style="width:100%;margin-top:8px">'+LL.close+'</button>';
+      var c2=$('card2');
+      c2.innerHTML=h;
+      $('ov2').classList.add('on');
+      c2.onclick=function(e){
+        var b=e.target.closest&&e.target.closest('button');if(!b||b.disabled)return;
+        var a=b.getAttribute('data-act');
+        if(a==='close')return $('ov2').classList.remove('on');
+        if(a==='back')return openLearn(si-1);
+        if(a==='next')return last?$('ov2').classList.remove('on'):openLearn(si+1);
+        if(solved)return;
+        if(a==='pass'){solved=true;fb=tx.good;fbc='ok';return draw()}
+        if(a==='tile'){
+          var i=+b.getAttribute('data-i');
+          if(sc.ok===i){place(hand[i]);hand.splice(i,1);solved=true;fb=tx.good;fbc='ok'}
+          else{fb=tx.bad;fbc='no'}
+          draw();
+        }
+      };
+    }
+    draw();
   }
   function openRules(){
     var h='<h2>'+t('rulesTitle')+'</h2><div style="text-align:left">';
@@ -2760,10 +2843,11 @@ header,.placebar,.scores{position:relative;z-index:4}
     }
     h+='<p style="margin:12px 0 0;font-size:14px">'+tt('here').replace('{n}',placeLabel(placeIndex(S.progress.wins))).replace('{w}',S.progress.wins)+'</p>';
     h+='<p style="margin-top:10px;font-size:13px">'+tt('toWin').replace('{n}',TARGET)+'</p>';
-    h+='<button id="goBtn">'+tt('start')+'</button><button id="namesBtn2" class="alt" style="margin-top:8px;width:100%">'+tt('namesTitle')+'</button><button id="rulesBtn2" class="alt" style="margin-top:8px;width:100%">'+tt('rulesTitle')+'</button>';
+    h+='<button id="goBtn">'+tt('start')+'</button><button id="learnBtn2" class="alt" style="margin-top:8px;width:100%">\uD83D\uDCD6 '+tt('learnTitle')+'</button><button id="namesBtn2" class="alt" style="margin-top:8px;width:100%">'+tt('namesTitle')+'</button><button id="rulesBtn2" class="alt" style="margin-top:8px;width:100%">'+tt('rulesTitle')+'</button>';
     card.innerHTML=h;
     card.onclick=function(e){
       var b=e.target.closest('button');if(!b)return;
+      if(b.id==='learnBtn2'){return openLearn(0)}
       if(b.id==='rulesBtn2'){return openRules()}
       if(b.id==='namesBtn2'){return openNames()}
       if(b.id==='goBtn'){audio();$('ov').classList.remove('on');card.onclick=null;return startGame()}
