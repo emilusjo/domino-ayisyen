@@ -35,7 +35,9 @@ body{min-height:100%}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 html{background:var(--page)}
 body{background:transparent;color:var(--ink);font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  display:flex;flex-direction:column;min-height:100vh;min-height:100dvh;-webkit-tap-highlight-color:transparent}
+  display:flex;flex-direction:column;-webkit-tap-highlight-color:transparent;
+  /* the page itself already pads the notch and the home bar (see :root), so the body takes the screen height MINUS them, or the page is taller than the phone and the bottom is cut off */
+  min-height:calc(100vh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));min-height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
 #backdrop{position:fixed;inset:0;z-index:-1;pointer-events:none;
   --bdy:56vh;
   background:
@@ -474,6 +476,7 @@ header,.placebar,.scores{position:relative;z-index:4}
   .rack3{gap:3px;margin-bottom:2px}
   .youbar button{min-height:28px;padding:3px 12px;font-size:12px}
   .msg{padding:2px 10px;min-height:20px;font-size:12px}
+  .sc:first-child{left:calc(6px + env(safe-area-inset-left,0px))}.sc:not(:first-child){right:calc(6px + env(safe-area-inset-right,0px))}
 }
 </style>
 </head>
@@ -590,7 +593,7 @@ header,.placebar,.scores{position:relative;z-index:4}
       matchWin:'You win the match! 🎉',matchLose:'You lost the match',matchTeamWin:'Your team wins the match! 🎉',
       matchWho:'{n} wins the match.',score:'Points',lang:'KR',noteHint:'',pts:'points',winsLow:'Lowest count wins.',settingsTitle:'Settings',profTitle:'Profile',profJourney:'Your journey',profPl:'{n} players',profStats:'Stats',profMatches:'Matches',profRounds:'Rounds',profTonbe:'Dominos you made',profDek:'Dekabès you made',profBlocked:'Blocked rounds',profOf:'{a} won of {b}',profNone:'No match played yet. Your stats will show up here.',profReset:'Reset stats',profSure:'Tap again to confirm',profName:'Change name',learnTitle:'Learn to play',profAvatar:'Your avatar',profCountry:'Your country',profNoFlag:'None',namesTitle:'Player names',namesHelp:'Type your name and the names of the other players. Leave a box empty to keep the usual name.',namesMe:'Your name',namesP:'Player {n}',namesPartner:'partner in a game of 4',namesSave:'Save',namesReset:'Back to the usual names',histTitle:'Past rounds',histRound:'Round',histLine:'The line of play',histLeft:'Tiles left in the hands',histNone:'No round has finished yet.',tourMode:'Journey for {n} players',cardHide:'Fold the result',cardShow:'Show the result',histEnds:'The two ends: {l} and {r}',histDek:'Dekabès: the {t} won both ends, {l} and {r}.',histLastT:'Last tile: {t}',histKeep:'Rounds are kept for 24 hours after they end, to look back at how the last play went.',photosTitle:'Photo credits',photosIntro:'The photos come from Unsplash. Thank you to the photographers.',photosMore:'A few photos do not have their photographer listed yet.',photosAI:'Image made with artificial intelligence',previewing:'Previewing (not reached yet)',tourPreviewHint:'Tap any place to look at it.',tourBack:'Back to my place',tilt3d:'3D table',tourTitle:'Domino Tour',tourReached:'Reached',tourHere:'You are here',tourNeed:'{n} wins',tourStats:'You have won {n} matches. Every win (Vièj) opens a new place!',tourLevel:'Bot level: {l}. They get stronger at {w} wins.',tourLevelMax:'Bot level: 5 (the strongest).',tourEarlier:'… {n} places behind you',nextDest:'Next destination',cont:'Continue',version:'Version',vieg:'Vièj!',viegCount:'{t}: {n} Vièj',shuffling:'Shuffling the tiles…',dealing:'Dealing 7 tiles to each player…',travel:'You travel to {n}!',toNext:'{k} more wins to reach {n}.',here:'You are at: {n} · {w} wins',tieTitle:'Tie!',tieShuffle:'Shuffling the tiles…',pickYou:'Pick a tile from the pile.',pickBot:'{n} is picking a tile…',pickRes:'{n}: {t}',pickAgain:'Same count. Shuffle again.',pickWin:'{n} has the lowest and wins!',hintLbl:'Show tiles I can play',rules:'Rules',rulesTitle:'How to play',close:'Close',sound:'Sound',settings:'Change settings',installTitle:'Put the game on your phone’s home screen',installTxt:'iPhone: open the link in Safari, tap the Share button, then choose “Add to Home Screen”.<br>Android: open the link in Chrome, tap the menu (three dots), then choose “Add to Home screen”.',tonbeBtn:'M’tonbe! (I win)',tonbeNo1:'You still have more than one tile.',tonbeNo2:'Your last tile doesn’t fit.',dek:'Dekabès!',dekOwn:'Dekabès! You win on both ends.',dekTitle:'{n} dekabès! Wins on both ends.',mustPlay:'You have a play. You can’t pass.'}
   };
-  var TARGET=4,BUILD=129; /* raise by one with every change, so the player can check which copy of the page is open (Settings) */
+  var TARGET=4,BUILD=130; /* raise by one with every change, so the player can check which copy of the page is open (Settings) */
   var S={history:[],histN:0,previewIdx:null,portrait:false,bdScene:-1,sceneKey:'',bdIdx:-1,pendingEnd:null,lastCard:null,vieg:[],pickId:0,flight:null,drawFrom:null,shuffling:false,level:1,progress:{wins:0},cfg:{n:4,mode:'nodraw',lang:'kr'},n:4,mode:'nodraw',lang:'kr',players:[],pile:[],chain:[],turn:0,passes:0,leader:0,wins:[],over:true,busy:false,sel:null,fresh:null,bubbles:{},hints:false,sound:true,started:false,msg:'',msgBig:false};
   var $=function(id){return document.getElementById(id)};
 
