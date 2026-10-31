@@ -3,7 +3,7 @@
      or when the network is slower than 3 seconds
    - fonts and icons: saved copy first
    Change VERSION when the list of files changes. */
-const VERSION = 'dk-28';
+const VERSION = 'dk-29';
 const FILES = [
   './',
   'index.html',
@@ -14,7 +14,7 @@ const FILES = [
   'icons/favicon-32.png',
   'fonts/bricolage-latin.woff2',
   'fonts/bricolage-latin-ext.woff2',
-  'sounds/domino_place.wav', 'sounds/domino_slide.wav', 'sounds/domino_draw.wav', 'sounds/domino_knock.wav', 'sounds/domino_shuffle.wav',
+  'sounds/domino_place.wav', 'sounds/domino_draw.wav', 'sounds/domino_knock.wav', 'sounds/domino_shuffle.wav',
   'sounds/domino_slam_01.wav', 'sounds/domino_slam_02.wav', 'sounds/domino_slam_03.wav', 'sounds/final_domino.wav', 'sounds/victory.wav',
   'places/lakou.jpg', 'places/kafe.jpg', 'places/tonel.jpg', 'places/vil.jpg', 'places/plaj.jpg', 'places/mache.jpg', 'places/savann.jpg', 'places/kafou.jpg', 
   'places/mon.jpg', 'places/po.jpg', 'places/sitadel.jpg', 'places/jaden.jpg', 'places/lakay.jpg', 'places/fem.jpg'
