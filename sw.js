@@ -3,7 +3,7 @@
      or when the network is slower than 3 seconds
    - fonts and icons: saved copy first
    Change VERSION when the list of files changes. */
-const VERSION = 'dk-30';
+const VERSION = 'dk-31';
 const FILES = [
   './',
   'index.html',
