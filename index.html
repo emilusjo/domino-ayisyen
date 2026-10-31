@@ -590,7 +590,7 @@ header,.placebar,.scores{position:relative;z-index:4}
       matchWin:'You win the match! 🎉',matchLose:'You lost the match',matchTeamWin:'Your team wins the match! 🎉',
       matchWho:'{n} wins the match.',score:'Points',lang:'KR',noteHint:'',pts:'points',winsLow:'Lowest count wins.',settingsTitle:'Settings',profTitle:'Profile',profJourney:'Your journey',profPl:'{n} players',profStats:'Stats',profMatches:'Matches',profRounds:'Rounds',profTonbe:'Dominos you made',profDek:'Dekabès you made',profBlocked:'Blocked rounds',profOf:'{a} won of {b}',profNone:'No match played yet. Your stats will show up here.',profReset:'Reset stats',profSure:'Tap again to confirm',profName:'Change name',learnTitle:'Learn to play',profAvatar:'Your avatar',profCountry:'Your country',profNoFlag:'None',namesTitle:'Player names',namesHelp:'Type your name and the names of the other players. Leave a box empty to keep the usual name.',namesMe:'Your name',namesP:'Player {n}',namesPartner:'partner in a game of 4',namesSave:'Save',namesReset:'Back to the usual names',histTitle:'Past rounds',histRound:'Round',histLine:'The line of play',histLeft:'Tiles left in the hands',histNone:'No round has finished yet.',tourMode:'Journey for {n} players',cardHide:'Fold the result',cardShow:'Show the result',histEnds:'The two ends: {l} and {r}',histDek:'Dekabès: the {t} won both ends, {l} and {r}.',histLastT:'Last tile: {t}',histKeep:'Rounds are kept for 24 hours after they end, to look back at how the last play went.',photosTitle:'Photo credits',photosIntro:'The photos come from Unsplash. Thank you to the photographers.',photosMore:'A few photos do not have their photographer listed yet.',photosAI:'Image made with artificial intelligence',previewing:'Previewing (not reached yet)',tourPreviewHint:'Tap any place to look at it.',tourBack:'Back to my place',tilt3d:'3D table',tourTitle:'Domino Tour',tourReached:'Reached',tourHere:'You are here',tourNeed:'{n} wins',tourStats:'You have won {n} matches. Every win (Vièj) opens a new place!',tourLevel:'Bot level: {l}. They get stronger at {w} wins.',tourLevelMax:'Bot level: 5 (the strongest).',tourEarlier:'… {n} places behind you',nextDest:'Next destination',cont:'Continue',version:'Version',vieg:'Vièj!',viegCount:'{t}: {n} Vièj',shuffling:'Shuffling the tiles…',dealing:'Dealing 7 tiles to each player…',travel:'You travel to {n}!',toNext:'{k} more wins to reach {n}.',here:'You are at: {n} · {w} wins',tieTitle:'Tie!',tieShuffle:'Shuffling the tiles…',pickYou:'Pick a tile from the pile.',pickBot:'{n} is picking a tile…',pickRes:'{n}: {t}',pickAgain:'Same count. Shuffle again.',pickWin:'{n} has the lowest and wins!',hintLbl:'Show tiles I can play',rules:'Rules',rulesTitle:'How to play',close:'Close',sound:'Sound',settings:'Change settings',installTitle:'Put the game on your phone’s home screen',installTxt:'iPhone: open the link in Safari, tap the Share button, then choose “Add to Home Screen”.<br>Android: open the link in Chrome, tap the menu (three dots), then choose “Add to Home screen”.',tonbeBtn:'M’tonbe! (I win)',tonbeNo1:'You still have more than one tile.',tonbeNo2:'Your last tile doesn’t fit.',dek:'Dekabès!',dekOwn:'Dekabès! You win on both ends.',dekTitle:'{n} dekabès! Wins on both ends.',mustPlay:'You have a play. You can’t pass.'}
   };
-  var TARGET=4,BUILD=127; /* raise by one with every change, so the player can check which copy of the page is open (Settings) */
+  var TARGET=4,BUILD=128; /* raise by one with every change, so the player can check which copy of the page is open (Settings) */
   var S={history:[],histN:0,previewIdx:null,portrait:false,bdScene:-1,sceneKey:'',bdIdx:-1,pendingEnd:null,lastCard:null,vieg:[],pickId:0,flight:null,drawFrom:null,shuffling:false,level:1,progress:{wins:0},cfg:{n:4,mode:'nodraw',lang:'kr'},n:4,mode:'nodraw',lang:'kr',players:[],pile:[],chain:[],turn:0,passes:0,leader:0,wins:[],over:true,busy:false,sel:null,fresh:null,bubbles:{},hints:false,sound:true,started:false,msg:'',msgBig:false};
   var $=function(id){return document.getElementById(id)};
 
@@ -1513,16 +1513,42 @@ header,.placebar,.scores{position:relative;z-index:4}
     document.documentElement.lang=S.lang==='kr'?'ht':'en';
   })();
 
-  /* ==================== [C1] SOUND ==================== click, knock, celebrations: all made in the browser */
-  /* ---- sound (made in the browser, no files) ---- */
+  /* ==================== [C1] SOUND ==================== recorded sounds from the sounds/ folder (table, knock, shuffle, slams, victory); the old sounds made in the browser stay as the backup, and for click, tick and cheering */
+  /* ---- sound ---- */
   var AC=null;
   function audio(){
     try{
-      if(!AC){var C=window.AudioContext||window.webkitAudioContext;if(C)AC=new C()}
+      if(!AC){var C=window.AudioContext||window.webkitAudioContext;if(C){AC=new C();loadSounds(AC)}}
       if(AC&&AC.state==='suspended')AC.resume();
     }catch(e){}
     return AC;
   }
+  /* the recorded sounds: name -> file in sounds/ (made with an AI tool by the owner; levels evened out, see sounds/README.md). BUF fills in once they are decoded; until then (or if a file is missing) the sounds made in the browser play instead. */
+  var SFILES={place:'domino_place',slide:'domino_slide',draw:'domino_draw',knock:'domino_knock',shuffle:'domino_shuffle',slam_01:'domino_slam_01',slam_02:'domino_slam_02',slam_03:'domino_slam_03',final:'final_domino',victory:'victory'};
+  var BUF={},SLOADING=false;
+  function loadSounds(ac){
+    if(SLOADING||typeof fetch!=='function')return;
+    SLOADING=true;
+    Object.keys(SFILES).forEach(function(n){
+      try{
+        fetch('sounds/'+SFILES[n]+'.wav').then(function(r){if(!r.ok)throw 0;return r.arrayBuffer()}).then(function(ab){
+          ac.decodeAudioData(ab,function(b){BUF[n]=b},function(){});
+        }).catch(function(){});
+      }catch(e){}
+    });
+  }
+  function playFile(ac,bus,name,when,gain,rate){
+    var b=BUF[name];if(!b)return false;
+    try{
+      var src=ac.createBufferSource(),g=ac.createGain();
+      src.buffer=b;if(rate)src.playbackRate.value=rate;g.gain.value=gain;
+      src.connect(g);g.connect(bus);src.start(when);
+      return true;
+    }catch(e){return false}
+  }
+  if(typeof window!=='undefined')window.__dkSounds=function(){return Object.keys(BUF)}; /* for the tests */
+  /* start loading the recordings as the page opens (the audio engine may be created before a tap; it is only allowed to make sound after one) */
+  try{var C0=typeof window!=='undefined'&&(window.AudioContext||window.webkitAudioContext);if(C0&&!AC){AC=new C0();loadSounds(AC)}}catch(e){}
   var NOISE=null;
   function noiseBuf(ac){
     if(NOISE&&NOISE.sampleRate===ac.sampleRate)return NOISE;
@@ -1555,7 +1581,7 @@ header,.placebar,.scores{position:relative;z-index:4}
       src.connect(fl);fl.connect(g);g.connect(bus);src.start(now+t0,R()*0.3);src.stop(now+t0+d+0.02);
     };
     /* the last tile slammed on the table */
-    var slam=function(t0,v){burst(600,0.8,0.13,0.9*v,t0,'lowpass');beep(95,0.28,'sine',0.9*v,t0,42);burst(2600,2,0.03,0.5*v,t0)};
+    var slam=function(t0,v,nm){if(playFile(ac,bus,nm||'slam_01',now+t0,0.9*v))return;burst(600,0.8,0.13,0.9*v,t0,'lowpass');beep(95,0.28,'sine',0.9*v,t0,42);burst(2600,2,0.03,0.5*v,t0)};
     /* a crowd cheering: noise that swells and fades */
     var cheer=function(t0,d,v){
       var src=ac.createBufferSource(),fl=ac.createBiquadFilter(),g=ac.createGain();
@@ -1567,20 +1593,26 @@ header,.placebar,.scores{position:relative;z-index:4}
     var applause=function(t0,d,v){for(var i=0;i<Math.floor(d*45);i++)burst(2200+R()*3200,1.1,0.012+R()*0.02,v*(0.4+R()*0.6),t0+R()*d)};
     var note=function(f,t0,d,v){beep(f,d,'triangle',v,t0);beep(f*2,d*0.7,'sine',v*0.35,t0)};
     var knock=function(t0,v){burst(500+R()*150,1.2,0.07,v*0.9,t0,'lowpass');beep(120+R()*30,0.09,'sine',v,t0,60)};
-    if(kind==='tile'){
+    if(kind==='tile'&&(BUF.place||BUF.slide)){
+      if(R()<0.72&&BUF.place)playFile(ac,bus,'place',now,0.9,0.94+R()*0.12);else playFile(ac,bus,BUF.slide?'slide':'place',now,BUF.slide?0.55:0.9,0.96+R()*0.1);
+    }
+    else if(kind==='tile'){
       var k=0.85+R()*0.3;
       burst(2300*k,2.2,0.035,0.6,0);burst(1100*k,1.5,0.05,0.35,0.004);beep(150*k,0.08,'sine',0.5,0,70);
       if(R()<0.4)burst(2600*k,3,0.02,0.25,0.05) /* a second, softer click as the tile settles */
     }
-    else if(kind==='pass'){knock(0,0.55);knock(0.16+R()*0.04,0.45)}
+    else if(kind==='pass'){if(!playFile(ac,bus,'knock',now,0.85,0.97+R()*0.06)){knock(0,0.55);knock(0.16+R()*0.04,0.45)}}
+    else if(kind==='draw'){if(!playFile(ac,bus,'draw',now,0.8,0.95+R()*0.1)){burst(1400+R()*600,1.2,0.09,0.35,0);burst(900,1,0.06,0.2,0.05)}}
+    else if(kind==='shuffle'){if(!playFile(ac,bus,'shuffle',now,0.6)){burst(700+R()*1800,0.9,0.05+R()*0.04,0.22,0)}}
+    else if(kind==='rustle'){if(!BUF.shuffle){burst(700+R()*1800,0.9,0.05+R()*0.04,0.22,0);if(R()<0.5)beep(180+R()*100,0.05,'sine',0.12,0.01)}} /* while the washing goes on, the recording of it covers the rustle */
     else if(kind==='win'){[392,494,587].forEach(function(f,i){beep(f,0.2,'triangle',0.3,i*0.12)})}
     else if(kind==='tonbe'){ /* your side's tonbe: slam, a quick fanfare, a cheer */
-      slam(0,1);[523,659,784,1047].forEach(function(f,i){note(f,0.12+i*0.1,0.32,0.26)});cheer(0.12,1.0,0.16);applause(0.35,0.9,0.1)}
+      slam(0,1,'final');[523,659,784,1047].forEach(function(f,i){note(f,0.12+i*0.1,0.32,0.26)});cheer(0.12,1.0,0.16);applause(0.35,0.9,0.1)}
     else if(kind==='dek'){ /* dekabes: two slams, a longer fanfare, a bigger cheer */
-      slam(0,1);slam(0.16,0.9);[523,659,784,1047,1319,1568].forEach(function(f,i){note(f,0.3+i*0.09,0.4,0.26)});cheer(0.3,1.4,0.2);applause(0.5,1.3,0.12)}
+      slam(0,1,'slam_02');slam(0.16,0.9,'slam_03');[523,659,784,1047,1319,1568].forEach(function(f,i){note(f,0.3+i*0.09,0.4,0.26)});cheer(0.3,1.4,0.2);applause(0.5,1.3,0.12)}
     else if(kind==='vieg'){ /* Viej: a drum roll, a big chord, applause */
       for(var d=0;d<14;d++)burst(300+d*20,0.7,0.07,0.28+d*0.02,d*d*0.0034+d*0.03,'lowpass');
-      slam(0.62,1);[262,330,392,523,659].forEach(function(f){note(f,0.62,1.2,0.2)});
+      slam(0.62,1,'slam_01');if(!playFile(ac,bus,'victory',now+0.62,0.8))[262,330,392,523,659].forEach(function(f){note(f,0.62,1.2,0.2)});
       [1047,1319,1568,2093].forEach(function(f,i){note(f,0.75+i*0.08,0.5,0.14)});cheer(0.65,1.8,0.2);applause(0.8,2.0,0.14)}
     else if(kind==='tick'){burst(1400+R()*600,1.2,0.09,0.35,0);burst(900,1,0.06,0.2,0.05)}
     else if(kind==='shuf'){burst(700+R()*1800,0.9,0.05+R()*0.04,0.22,0);if(R()<0.5)beep(180+R()*100,0.05,'sine',0.12,0.01)}
@@ -2220,7 +2252,7 @@ header,.placebar,.scores{position:relative;z-index:4}
     });
     function ease(v){v=Math.max(0,Math.min(1,v));return v*v*(3-2*v)}
     var dealing=false,finished=false,start=performance.now(),last=start,lastRustle=0,tmax=0,dealT0=0,DL=null; /* DL: the dealing hand's list of flicks */
-    setMsg(t('shuffling'));sfx('shuf');
+    setMsg(t('shuffling'));sfx('shuffle');
     function finish(){if(finished)return;finished=true;cancelDeal();done()}
     layer.addEventListener('click',finish);
     function draw(o){o.el.style.transform='translate('+(o.x-13)+'px,'+(o.y-23)+'px) rotate('+o.a+'deg) scale('+o.sc+')'}
@@ -2404,7 +2436,7 @@ header,.placebar,.scores{position:relative;z-index:4}
         }
         draw(o);
       }
-      if(!dealing&&!calm&&now-lastRustle>300){lastRustle=now;sfx('shuf')}
+      if(!dealing&&!calm&&now-lastRustle>300){lastRustle=now;sfx('rustle')}
       if(dealing&&now>=tmax){finish();return}
       st.raf=requestAnimationFrame(frame);
     }
@@ -2481,7 +2513,7 @@ header,.placebar,.scores{position:relative;z-index:4}
     }
     pl.hand.push(S.pile.splice(i,1)[0]);
     pl.missing={};S.passes=0;S.sel=null;
-    sfx('tick');
+    sfx('draw');
     var callTxt=t('drawCall');
     S.bubbles[p]=callTxt;
     setTimeout(function(){if(S.bubbles[p]===callTxt&&!S.over){S.bubbles[p]='';render()}},1500);
